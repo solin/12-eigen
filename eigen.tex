@@ -1,27 +1,19 @@
 
-\documentclass[preprint,12pt]{elsarticle}
-
-
-
-
-
-\usepackage{amsmath,amssymb,amsfonts,stmaryrd,amsthm}
-\usepackage{graphicx}
-\usepackage{pstricks}
+\documentclass[smallextended]{svjour3}
+\usepackage{amsmath,amssymb,amsfonts,stmaryrd}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{graphicx, subfigure}
+
+
 
 \hyphenation{English}
 
 
 
-
-
-\journal{Journal of Computational and Applied Mathematics}
-
-\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
 \newtheorem{assumption}[theorem]{Assumption}
-\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{lemma}[theorem]{Lemma}
 
 \newcommand{\pe}{\psi}
 \def\d{\delta} 
@@ -39,9 +31,9 @@
 \def\wb{{\bar w}} 
 \def\zb{{\bar z}} 
 
-\def\qed{Q.E.D.}
+%\def\qed{Q.E.D.}
 
-\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{definition}[theorem]{Definition}
 
 \newcommand{\cS}{\mathcal{S}}
 \newcommand{\tU}{\tilde{U}}
@@ -74,45 +66,47 @@
 
 \begin{document}
 
-\begin{frontmatter}
+\title{An Iterative Adaptive Finite Element Method\\ for Non-Symmetric Elliptic Eigenvalue Problem}
+
+\subtitle{}
+
+%\author{Pavel~Solin}
+%
+%\institute{P. Solin \atDepartment of Mathematics and Statistics, University of Nevada, Reno, USA, and Institute of Thermo-mechanics,
+%Prague, Czech Republic
+%              \email{solin@unr.edu}
+%}
+
+\author{Pavel~Solin \and Stefano Giani}
+
+\institute{P. Solin \at Department of Mathematics and Statistics, University of Nevada, Reno, USA, and Institute of Thermo-mechanics,
+Prague, Czech Republic
+              \email{solin@unr.edu}\and
+              S. Giani \at
+              School of Mathematical Sciences, University of Nottingham,
+University Park,
+Nottingham,
+NG7 2RD, UK.
+              \email{stefano.giani@nottingham.ac.uk}
+}
 
 
 
-\title{An Iterative Adaptive Finite Element Method\\ for Non-Symmetric Elliptic Eigenvalue Problems}
+
+\date{}
+
+\maketitle
 
 
-\author[aut1]{Pavel~Solin}
-\ead{solin@unr.edu}
 
-\author[aut2]{Stefano~Giani\corref{cor1}}
-\ead{stefano.giani@nottingham.ac.uk}
 
-\cortext[cor1]{Corresponding author}
-
-\address[aut1]{Department of Mathematics and Statistics, University of Nevada, Reno, USA, and Institute of Thermo-mechanics,
-Prague, Czech Republic}
-
-\address[aut2]{School of Mathematical Sciences
-University of Nottingham , University Park, Nottingham, NG7 2RD,  United Kingdom,
-Phone: +44 (0) 115 8467916}
 
 \begin{abstract}
 
-
-\end{abstract}
-
-\begin{keyword}
-partial differential equation \sep eigenvalue problem \sep iterative method \sep
+\keywords{partial differential equation \and eigenvalue problem \and iterative method \and
 adaptive higher-order finite element
-method \sep $hp$-FEM \sep reproducible research
-\MSC 65N25 \sep 65N30 \sep 65N50 \sep 35B45
-\end{keyword}
-
-\end{frontmatter}
-
-
-
-\begin{abstract}
+method \and $hp$-FEM}
+ \subclass{65N25 \and 65N30 \and 65N50}
 
 \end{abstract}
 
@@ -140,14 +134,14 @@ $b \in \big[L^\infty(\Omega)\big]^2$ and $c\in L^\infty(\Omega)$ is non-negative
 \section{Motivation}\label{sec:motiv}
 
 This work is motivated by the fact that non-symmetric eigenvalue problems have in general have very different left and right eigenfunctions for the same eigenvalue.
-In Figure~\ref{fig:eigen1} we reported the left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one} on the unit sqaure with $b:=(5,5)$ and $c:=0$. 
+In Figure~\ref{fig:eigen1} we reported the left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one} on the unit square with $b:=(5,5)$ and $c:=0$. 
 As can be seen the two functions are different and in particular most of the energy of the modes is concentrated in different regions. It is straightforward to conclude that this two eigenfunctions can not be approximated efficiently using the same sequence of adapted meshes for both of them. For this reason we developed the methods presented in this work that use two independent sequences of refined meshes to approximate the left and right eigenfunctions.
 In Figure~\ref{fig:mesh1} we reported the $hp$-adapted meshes for the eigenfunctions in Figure~\ref{fig:eigen1}.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=0.4\textwidth]{eig1.eps}\ \ \ 
-\includegraphics[width=0.4\textwidth]{eig2.eps}\\
+\includegraphics[width=0.45\textwidth]{eig1.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{eig2.eps}\\
 \end{center}
 %\vspace{-5mm}
 \caption{Left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one}. }
@@ -156,8 +150,8 @@ In Figure~\ref{fig:mesh1} we reported the $hp$-adapted meshes for the eigenfunct
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[width=0.4\textwidth]{mesh1.eps}\ \ \ 
-\includegraphics[width=0.4\textwidth]{mesh2.eps}\\
+\includegraphics[width=0.45\textwidth]{mesh1.eps}\ \ \ 
+\includegraphics[width=0.43\textwidth]{mesh2.eps}\\
 \end{center}
 %\vspace{-5mm}
 \caption{$hp$-adapted meshes for the left and right eigenfunctions in Figure~\ref{fig:eigen1}. }
@@ -255,7 +249,7 @@ a(v_{n},u_{j,n}^*)&=& \lambda_{j,n}\ b(v_{n},u_{j,n}^*),
 
 The methods presented in this work make use of a third sequence of meshes $\mathcal{T}_n^U$ which, for each $n$, $\mathcal{T}_n^U$ is the union of the two meshes  $\mathcal{T}_n$ and $\mathcal{T}_n^*$. Similarly we define the spaces $V_n^U$ constructed on the meshes $\mathcal{T}_n^U$ which contain the spaces $V_n$ and $V_n^*$ for each $n$. 
 
-\textcolor{red}{Pavel, can you explain better how this thing about the union of the meshes and the common FE space works?}
+{Pavel, can you explain better how this thing about the union of the meshes and the common FE space works?}
 
 Then for any function $v\in V_n$ we can defined a trivial prolongation operator $P$ such that $Pv\in V_n^U$ is the prolongation of $v$ in $V_n^U$ and similarly we can define the trivial prolongation operator $P^*$ from $V_n^*$ into $V_n^U$. %Let also denote the restriction operators $R:V_n^U\rightarrow V_n$ and $R^*:V_n^U\rightarrow V_n^*$ satisfying for $v\in V_n$ $v\equiv RPv$ and for $v\in V_n^*$ $v\equiv R^*P^*v$.
 
@@ -576,7 +570,7 @@ which defines the linear problem of the Newton's method that we are solving.
 
 
 
-\begin{algorithm}[H] \caption{Newton's method} \label{alg:newton} 
+\begin{algorithm}[!ht] \caption{Newton's method} \label{alg:newton} 
 \begin{algorithmic}
 
 \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{Newton}
@@ -604,7 +598,7 @@ $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
 \end{algorithm}
 
 In order to make the method suitable for all eigenpairs, we are going write a version of the Newton's method that uses an orthogonalization procedure, similarly to what we have already done for the Picard's method.
-\begin{algorithm}[H] \caption{Newton's method with orthogonalization} \label{alg:newton_ortho} 
+\begin{algorithm}[!ht] \caption{Newton's method with orthogonalization} \label{alg:newton_ortho} 
 \begin{algorithmic}
 
 \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{NewtonOrtho}
@@ -693,7 +687,7 @@ In each adaptivity step it
 constructs an approximation pair with different orders of accuracy and uses their difference 
 as an a-posteriori error estimator. 
 
-\begin{algorithm}[H] \caption{Automatic $hp$-Adaptivity} \label{alg:hp} 
+\begin{algorithm}[!ht] \caption{Automatic $hp$-Adaptivity} \label{alg:hp} 
 \begin{algorithmic}
 \STATE{Let $\cT^c_{0}$ and $\cT^{c,*}_{0}$ be the initial coarse meshes. We construct the initial fine meshes $\cT^f_{0}$ and $\cT^{f,*}_{0}$
 by refining all elements in space and moreover increasing their polynomial degrees by one.
@@ -748,7 +742,7 @@ $$
 \mathrm{dim}\ E(\lambda_j)=\sum_{i=0}^m\mathrm{dim}\ E(\lambda_{j+i,n}).
 $$
 The same could happen to any right eigenspace $E^*(\lambda_j)$.
-This phenomenon is already well documented in literature,  see \cite{strang, babuska, hackbusch}.
+This phenomenon is already well documented in literature,  see \cite{strang,babuska,hackbusch}.
 
 Different finite element spaces can split the same multiple eigenspace in different ways, this also happens with adaptively refined meshes. It is not rare that the same multiple eigenspace is split differently on the coarse and on the refined meshes. A different split corresponds to different discrete eigenfunctions, then it is not always possible to find for the same eigenvalue on the refined mesh an eigenfunction similar to the one on the coarse mesh.
 
@@ -800,7 +794,7 @@ $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)_{j=1}^{i}\}:=\mathrm{Eigensolver}(\mathbf{A
 
 All algorithm we describe below are based on the reconstruction technology which is guided by two parameters: $\mathrm{DTE}$ and $\mathrm{FIE}$. The parameter $\mathrm{DTE}$ should be equal to the multiplicity of the continuous eigenvalue $\lambda$ that the user want to approximate. All algorithms work also when $\mathrm{DTE}$ is an upper bound of the multiplicity of $\lambda$, so in practice the multiplicity of the target eigenvalue is not necessary to be known exactly. The parameter $\mathrm{FIE}$ should be equal to the index $i$ of the first discrete eigenvalue on the initial mesh $\lambda_{i,0}$ that approximates $\lambda$. The reconstruction technology is described in Algorithm~\eqref{alg:reconstruction}.
 
-\begin{algorithm}[H] \caption{Reconstruction algorithm} \label{alg:reconstruction} 
+\begin{algorithm}[!ht] \caption{Reconstruction algorithm} \label{alg:reconstruction} 
 \begin{algorithmic}
 
 \STATE{$(\Lambda_n,U_n,U_n^*):=\mathrm{Reconstruction}
@@ -825,7 +819,7 @@ b(u_{i,n},U_{n-1}^*)u_{i,n}^*$}
 The first method is based on the Picard's method. The only three parameters not yet defined are $M$ which is the maximum number of mesh adaptation requested, $0<\mathrm{FIE}\leq\mathrm{TE}\leq\mathrm{FIE}+\mathrm{DTE} $ which is the index of the eigenvalue that the user want to target and $\mathrm{err}$ which is tolerance for the a-posteriori error estimator.
 
 
-\begin{algorithm}[H] \caption{Adaptive method based on the Picard's method} \label{alg:picard_adapt} 
+\begin{algorithm}[!ht] \caption{Adaptive method based on the Picard's method} \label{alg:picard_adapt} 
 \begin{algorithmic}
 
 \STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{PicardAdapt}
@@ -880,7 +874,7 @@ The first method is based on the Picard's method. The only three parameters not 
 
 Similarly we define the adaptive method based on the Newton's method.
 
-\begin{algorithm}[H] \caption{Adaptive method based on the Newton's method} \label{alg:newton_adapt} 
+\begin{algorithm}[!ht] \caption{Adaptive method based on the Newton's method} \label{alg:newton_adapt} 
 \begin{algorithmic}
 
 \STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{NewtonAdapt}
@@ -946,7 +940,7 @@ Algorithm~\ref{alg:picard_importho} computes a set of eigentriplets $\{(\lambda_
 The key part of the algorithm is just after the call to $\mathrm{PicardOrtho}$, where the newly computed eigenfunction is analyzed. The analysis consists in checking how orthogonal the newly computed eigenfunctions $u_{j,n}$, $u_{j,n}^*$ are respect to the span of $\{(\tilde\lambda_{j,n-1},\tilde u_{j,n-1},\tilde u_{j,n-1}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}$. If the resulting value is smaller than $\mathrm{ThO}$, then $u_{j,n}$, $u_{j,n}^*$ are not considered part of the target eigenspace and new approximations of  $u_{j,n}$, $u_{j,n}^*$ are done. Otherwise, $u_{j,n}$, $u_{j,n}^*$ are kept and the algorithm pass to approximate the next eigenfunctions in the target eigenspace.
 The algorithm ends when all eigentriplets in $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}$ are computed.
 
-\begin{algorithm}[H] \caption{Picard's method with improved orthogonalization} \label{alg:picard_importho} 
+\begin{algorithm}[!ht] \caption{Picard's method with improved orthogonalization} \label{alg:picard_importho} 
 \begin{algorithmic}
 
 \STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{PicardImpOrtho}
@@ -982,7 +976,7 @@ The algorithm ends when all eigentriplets in $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H] \caption{Newton's method with improved orthogonalization} \label{alg:newton_importho} 
+\begin{algorithm}[!ht] \caption{Newton's method with improved orthogonalization} \label{alg:newton_importho} 
 \begin{algorithmic}
 
 \STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{NewtonImpOrtho}
@@ -1024,7 +1018,7 @@ So the number of computed eigenfunction may vary: in the best case scenario when
 
 We conclude this section stating the adaptive algorithms with improved orthogonality.
 
-\begin{algorithm}[H] \caption{Adaptive method based on the Picard's method with improved orthogonality} \label{alg:picard_impadapt} 
+\begin{algorithm}[!ht] \caption{Adaptive method based on the Picard's method with improved orthogonality} \label{alg:picard_impadapt} 
 \begin{algorithmic}
 
 \STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{PicardImpAdapt}
@@ -1064,7 +1058,7 @@ We conclude this section stating the adaptive algorithms with improved orthogona
 
 Similarly we define the adaptive method based on the Newton's method.
 
-\begin{algorithm}[H] \caption{Adaptive method based on the Newton's method with improved orthogonality} \label{alg:newton_impadapt} 
+\begin{algorithm}[!ht] \caption{Adaptive method based on the Newton's method with improved orthogonality} \label{alg:newton_impadapt} 
 \begin{algorithmic}
 
 \STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{NewtonImpAdapt}
@@ -1378,9 +1372,164 @@ with $1\leq \mu\leq \min\{p_n,p_n^*\}$.
 
 \section{Numerical Results} \label{sec:numer}
 
+\subsection{Orthogonality technologies}\label{ssec:ortho}
+
+In this first set of examples, we would like to show the advantages of the orthogonality technologies presented in Sections~\ref{sec:picard++},~\ref{sec:newton} and \ref{sec:imp_ortho}.
+We want to approximate the fifth eigenvalue and the corresponding eigenfunction of problem \eqref{one} on the square domain $[0,\pi]^2$ and with $b=(0.5,0.5)$ and $c=0$ just calling the Picard's method as in Algorithm~\ref{alg:picard} with no orthogonalization and starting with four quadratic elements forming the initial structured mesh.
+So, as always, we compute the approximation of the first fifth eigenpair on the initial coarse mesh with a generalized eigensolver, then we adapt the mesh for the fifth eigenpair and from that point on we use the Picard's method.
+As can be seen from the piece of output below, already on the first adapted mesh the Picard's method goes away from the correct value 98.8210440108936 for the eigenvalue and converges closer to the first eigenvalue 19.8642088021787: \\
+
+{\small
+\begin{verbatim}
+---- Picard iter 1, ndof 121, eigenvalue: 100.638868721152, picard_err_rel 82.1409%
+---- Picard iter 2, ndof 121, eigenvalue: 72.061449013246, picard_err_rel 26.0106%
+---- Picard iter 3, ndof 121, eigenvalue: 24.048653326668, picard_err_rel 189.064%
+---- Picard iter 4, ndof 121, eigenvalue: 19.896859692653, picard_err_rel 119.932%
+---- Picard iter 5, ndof 121, eigenvalue: 19.842805664953, picard_err_rel 26.1302%
+---- Picard iter 6, ndof 121, eigenvalue: 19.859718273742, picard_err_rel 5.49526%
+---- Picard iter 7, ndof 121, eigenvalue: 19.863473026642, picard_err_rel 1.30883%
+---- Picard iter 8, ndof 121, eigenvalue: 19.864119690489, picard_err_rel 0.395458%
+---- Picard iter 9, ndof 121, eigenvalue: 19.864225593476, picard_err_rel 0.144903%
+---- Picard iter 10, ndof 121, eigenvalue: 19.864242730568, picard_err_rel 0.0571376%
+---- Picard iter 11, ndof 121, eigenvalue: 19.864245495476, picard_err_rel 0.0229224%
+---- Picard iter 12, ndof 121, eigenvalue: 19.864245941239, picard_err_rel 0.0092188%
+---- Picard iter 13, ndof 121, eigenvalue: 19.864246013093, picard_err_rel 0.00370628%
+---- Picard iter 14, ndof 121, eigenvalue: 19.864246024674, picard_err_rel 0.00148921%
+---- Picard iter 15, ndof 121, eigenvalue: 19.864246026541, picard_err_rel 0.000598148%
+---- Picard iter 16, ndof 121, eigenvalue: 19.864246026842, picard_err_rel 0.000240197%
+---- Picard iter 17, ndof 121, eigenvalue: 19.864246026890, picard_err_rel 9.64444e-05%
+\end{verbatim}
+}
+
+\vspace{4mm}
+\noindent
+This is a clear example of what was predicted in Theorem~\ref{th:picard_conv}.
+
+On the other hand, using the standard orthogonality (Section~\ref{sec:picard++}) we cure this problem and the method 
+converges to the correct eigenpair. 
 
 
-\section{Reproducibility of Results} \label{sec:reproducibility}
+\subsection{Approximating eigenfunctions on individual meshes}\label{ssec:n_adapt}
+
+Next we would like to illustrate that in general each eigenfunction should be approximated on its own mesh.
+We choose the L-shape domain with $b=(0.5,0.5)$ and $c=0$ where the eigenfunctions of the first eigenvalue exhibit  
+singularities in the gradient at the re-entrant corner while the eigenfunctions of the second eigenvalue are completely smooth.
+The differences in the regularity are reflected in the adapted meshes: 
+For the first eigenfunction a great amount of $h$-refinement takes place at the re-entrant corner. 
+For the second eigenfunction we have an adapted mesh mostly characterized by $p$-refinement
+Moreover the fact that the operator in non-symmetric affects in different ways the left and right eigenfunctions. 
+In fact as can be seen the strength of the singularity at the re-entrant corner is different in the left and right eigenfunctions for the first eigenvalue and this is reflected in differences in the corresponding adapted meshes.
+Similarly also the left and right eigenfunctions of the second eigenvalue are not the same, even if both are smooth in this case, and this is again reflected in differences in the corresponding adapted meshes.
+These results are shown in Figures~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \ref{fig:l_sh_eig3} and \ref{fig:l_sh_eig4}.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{lshape1.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{lshape2.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{First eigenfunctions for the first eigenvalue of the L-shaped domain.}
+\label{fig:l_sh_eig1}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{lshape3.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{lshape4.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Figure~\ref{fig:l_sh_eig1}.}
+\label{fig:l_sh_eig2}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{lshape5.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{lshape6.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{First eigenfunctions for the first eigenvalue of the L-shaped domain.}
+\label{fig:l_sh_eig3}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{lshape7.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{lshape8.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Figure~\ref{fig:l_sh_eig3}.}
+\label{fig:l_sh_eig4}
+\end{figure}
+
+\subsection{Domains with few reentering corners}\label{ssec:reent}
+
+We conclude the numerics section considering the model problem \eqref{one} on the square domain $\Omega$ with a square hole and with $b=(1,0)$ and $c=0$. Assuming that we are interested in the eigenfunctions corresponding to the first eigenvalue, see Figure~\ref{fig:holef} and that we use the initial mesh in Figure~\ref{fig:hole_mesh}, we want to study the convergence of our $hp$-adapted method on independent meshes based on Picard's method, i.e. Algorithm~\ref{alg:picard_impadapt}.
+
+In Figure~\ref{fig:hole_mesh_12} we present the adapted meshes for the left and right eigenfunctions after 12 applications of the adaptive procedure. As can be seen the two meshes are different in order to fit with the different characteristics of each eigenfunction.
+
+In Figure~\ref{fig:conv1} the number of degrees of freedoms are plotted against the errors from both the left and right eigenfunctions. As can be seen, even if the eigenfunctions are different, both meshes are adapted in such a way that the convergence rate is very similar. Moreover the fact that the curves in Figure~\ref{fig:conv1} seem to approximate straight lines, which suggests exponential convergence rate. In Figure~\ref{fig:conv2} the errors are plotted against the number of adapted steps. Also in this case the convergence look exponential for both eigenfunctions.
+Finally in Figure~\ref{fig:its} we report the number of iterations at each adaptive step necessary to the Picard's method in Algorithm~\ref{alg:picard_impadapt} to converge with relative error $1e-3$ and absolute error $1e-9$.
+On average the number of iterations seems to reduce after each adaptation of the meshes and after the 14th adaptation the number of iterations settle to 2. This is particularly interesting from a numerical point of view because the number of iterations are minimum where the linear system is bigger making the method quite cheap to use.
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{hole1.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{hole2.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Left and right eigenfunctions corresponding to the first eigenvalue.}
+\label{fig:holef}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{hole_mesh.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Initial mesh.}
+\label{fig:hole_mesh}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{hole_mesh1.eps}\ \ \ 
+\includegraphics[width=0.42\textwidth]{hole_mesh2.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{$hp$-adapted meshes for the left and right eigenfunctions after 12 adaptations.}
+\label{fig:hole_mesh_12}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{dofs.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Convergence plots in number of degrees of freedom.}
+\label{fig:conv1}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{mesh.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Convergence plots in number of mesh adaptations.}
+\label{fig:conv2}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{its.eps}
+\end{center}
+%\vspace{-5mm}
+\caption{Number of iterations for the Picard's method after each mesh adaptation.}
+\label{fig:its}
+\end{figure}
+
+
+
 
 
 
