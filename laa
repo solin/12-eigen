@@ -1,1 +1,2 @@
 latex eigen.tex
+dvipdfm eigen.dvi

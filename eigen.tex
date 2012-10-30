@@ -189,10 +189,9 @@ Numerical results are rpesented in Section 12.
 
 \section{Motivation}\label{sec:motiv}
 
-This work is motivated by the fact that non-symmetric eigenvalue problems have in general have very different left and right eigenfunctions for the same eigenvalue.
-In Figure~\ref{fig:eigen1} we reported the left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one} on the unit square with $b:=(5,5)$ and $c:=0$. 
+This work is motivated by the fact that non-symmetric eigenvalue problems in general have very different left and right eigenfunctions for the same eigenvalue.
+In Fig.~\ref{fig:eigen1} we show the left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one} on the unit square with $b = (5, 5)$ and $c=0$. 
 As can be seen the two functions are different and in particular most of the energy of the modes is concentrated in different regions. It is straightforward to conclude that this two eigenfunctions can not be approximated efficiently using the same sequence of adapted meshes for both of them. For this reason we developed the methods presented in this work that use two independent sequences of refined meshes to approximate the left and right eigenfunctions.
-In Figure~\ref{fig:mesh1} we reported the $hp$-adapted meshes for the eigenfunctions in Figure~\ref{fig:eigen1}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -203,6 +202,9 @@ In Figure~\ref{fig:mesh1} we reported the $hp$-adapted meshes for the eigenfunct
 \caption{Left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one}. }
 \label{fig:eigen1}
 \end{figure}
+\noindent
+In Fig.~\ref{fig:mesh1} we show the $hp$-adapted meshes for the eigenfunctions from Fig.~\ref{fig:eigen1}.
+\newpage
 
 \begin{figure}[!ht]
 \begin{center}
@@ -210,7 +212,7 @@ In Figure~\ref{fig:mesh1} we reported the $hp$-adapted meshes for the eigenfunct
 \includegraphics[width=0.43\textwidth]{mesh2.eps}\\
 \end{center}
 %\vspace{-5mm}
-\caption{$hp$-adapted meshes for the left and right eigenfunctions in Figure~\ref{fig:eigen1}. }
+\caption{Different $hp$-adapted meshes for the left and right eigenfunctions from Fig.~\ref{fig:eigen1}. }
 \label{fig:mesh1}
 \end{figure}
 
@@ -224,7 +226,7 @@ Throughout, $L^2(\Omega)$
 denotes the usual space of square-integrable real valued functions
 equipped with the standard norm
 \begin{equation}\label{eq:l2}
-\|f\|_{0}\ := \ \left(\int_\Omega  |f|^2\right)^{\frac{1}{2}} .
+\|f\|_{0}\ = \ \left(\int_\Omega  |f|^2\right)^{\frac{1}{2}} .
 \end{equation}
 The symbol $H^1(\Omega)$ denotes the usual space of functions in $L^2(\Omega)$
 with square-integrable weak first partial derivatives. The $H^1$-norm is 
@@ -248,11 +250,11 @@ a(v,u_j^*)&=& \lambda_j\ b(v,u_j),
 \end{equation}
 where
 \begin{equation}\label{eq:a}
-a(u,v):=\int_\Omega \nabla u(x)\cdot \nabla v(x) + b\cdot \nabla u(x) v(x) + cu(x)v(x),
+a(u,v)=\int_\Omega \nabla u(x)\cdot \nabla v(x) + b\cdot \nabla u(x) v(x) + cu(x)v(x),
 \end{equation}
 and
 \begin{equation}\label{eq:b}
-b(u,v):=\int_\Omega u(x) v(x).
+b(u,v)=\int_\Omega u(x) v(x).
 \end{equation}
 
 
@@ -271,12 +273,12 @@ In the rest of the paper we are going to denote with a star all quantities relat
 By $h_{n,\tau}$ we denote the diameter of element $\tau$,  
 we define
 $
-h_n:=\max_{\tau\in \mathcal{T}_n}\{h_{n,\tau}\}.
+h_n=\max_{\tau\in \mathcal{T}_n}\{h_{n,\tau}\}.
 $
 Similarly with  $p_{n,\tau}$ we denote  the order of polynomials of element $\tau$,  
 we define
 $
-p_n:=\min_{\tau\in \mathcal{T}_n}\{p_{n,\tau}\}.
+p_n=\min_{\tau\in \mathcal{T}_n}\{p_{n,\tau}\}.
 $
 On any mesh $\mathcal{T}_n$ we denote by $V_n \subset H^1_0(\Omega)$ the finite
 dimensional space of continuous functions $v$ such that on any element $\tau$ we 
@@ -330,15 +332,15 @@ such that}
 \end{equation}
 where the entries of the matrices $\mathbf{A}$ and $\mathbf{B}$ are 
 $$
-\mathbf{A}_{k,p}:=a(\phi_p,\phi_k)\ ,\quad\mathbf{B}_{k,p}:=b(\phi_p,\phi_k)\ ,
+\mathbf{A}_{k,p}=a(\phi_p,\phi_k)\ ,\quad\mathbf{B}_{k,p}=b(\phi_p,\phi_k)\ ,
 $$
 where $\phi_i$ are the basis functions spanning $V_n$,
 $$
-\mathbf{A}^*_{k,p}:=a(\phi_k^*,\phi_p^*)\ ,\quad\mathbf{B}^*_{k,p}:=b(\phi_k^*,\phi_p^*)\ ,
+\mathbf{A}^*_{k,p}=a(\phi_k^*,\phi_p^*)\ ,\quad\mathbf{B}^*_{k,p}=b(\phi_k^*,\phi_p^*)\ ,
 $$
 where $\phi_i^*$ are the basis functions spanning $V_n^*$ and
 $$
-\mathbf{A}^U_{k,p}:=a(\phi_k^U,\phi_p^U)\ ,\quad\mathbf{B}^U_{k,p}:=b(\phi_k^U,\phi_p^U)\ ,
+\mathbf{A}^U_{k,p}=a(\phi_k^U,\phi_p^U)\ ,\quad\mathbf{B}^U_{k,p}=b(\phi_k^U,\phi_p^U)\ ,
 $$
 where $\phi_i^U$ are the basis functions spanning $V_n^U$, the union finite element space.
 
@@ -352,24 +354,24 @@ the projections on the refined meshes of the eigenfunctions of interest $u_{j,n-
 \begin{algorithm}[H] \caption{Picard's method} \label{alg:picard} 
 \begin{algorithmic}
 
-\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{Picard}
+\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{Picard}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u,\tilde u^*,\mathrm{Tol},\mathrm{AbsTol})$}
 
-\STATE{$\mathbf{u}^1:=\tilde u$}
-\STATE{$\mathbf{u}^{1,*}:=\tilde u^*$}
-\STATE{$\displaystyle\lambda^{1}:=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
+\STATE{$\mathbf{u}^1=\tilde u$}
+\STATE{$\mathbf{u}^{1,*}=\tilde u^*$}
+\STATE{$\displaystyle\lambda^{1}=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
 \STATE{$m=1$}
 \REPEAT
 
-\STATE{$\mathbf{u}^{m+1}:=\mathbf{A}^{-1}\lambda^m\mathbf{B}\mathbf{u}^{m}$}
-\STATE{$\mathbf{u}^{m+1,*}:=(\mathbf{A}^*)^{-1}\lambda^{m}\mathbf{B}^*\mathbf{u}^{m,*}$}
-\STATE{$\displaystyle\lambda^{m+1}:=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
-\STATE{$m:=m+1$}
+\STATE{$\mathbf{u}^{m+1}=\mathbf{A}^{-1}\lambda^m\mathbf{B}\mathbf{u}^{m}$}
+\STATE{$\mathbf{u}^{m+1,*}=(\mathbf{A}^*)^{-1}\lambda^{m}\mathbf{B}^*\mathbf{u}^{m,*}$}
+\STATE{$\displaystyle\lambda^{m+1}=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
+\STATE{$m=m+1$}
 \UNTIL{ $\max\{\frac{\|\mathbf{u}^{m}-\mathbf{u}^{m-1}\|_1}{\|\mathbf{u}^{m-1}\|_1},\frac{\|\mathbf{u}^{m,*}-\mathbf{u}^{m-1,*}\|_1}{\|\mathbf{u}^{m-1,*}\|_1}\}<\mathrm{Tol}$ \bf{or}
 $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
-\STATE{$u_{j,n}:=\mathbf{u}^{m}$}
-\STATE{$u_{j,n}^*:=\mathbf{u}^{m,*}$}
-\STATE{$\lambda_{j,n}:=\lambda^m$}
+\STATE{$u_{j,n}=\mathbf{u}^{m}$}
+\STATE{$u_{j,n}^*=\mathbf{u}^{m,*}$}
+\STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -429,7 +431,7 @@ $$
 Furthermore, the Rayleigh quotient is
 $$
 \begin{array}{ll}
-\displaystyle\lambda^{m+1}&\displaystyle:=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}\\
+\displaystyle\lambda^{m+1}&\displaystyle=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}\\
 \\
 &=\lambda_1 \frac{\displaystyle(c_1^1c_1^{1,*})(P^*\mathbf{u}^{*}_1)^t\mathbf{B}^U P\mathbf{u}_1 +
 \sum_{i=2}^N (c_i^1c_i^{1,*})(P^*\mathbf{u}^{*}_i)^t\mathbf{B}^U P\mathbf{u}_i\Bigg(\frac{\lambda_1}{\lambda_i}\Bigg)^{2m-1}}
@@ -452,7 +454,7 @@ $$
 and then
 $$
 \begin{array}{ll}
-\displaystyle\lambda^{m+1}&\displaystyle:=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}\\
+\displaystyle\lambda^{m+1}&\displaystyle=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}\\
 \\
 &\displaystyle=\lambda_1 \frac{\displaystyle \sum_{r=1}^R(c_r^1c_r^{1,*})(P^*\mathbf{u}^{*}_r)^t\mathbf{B}^U P\mathbf{u}_r +
 \sum_{i=R+1}^N (c_i^1c_i^{1,*})(P^*\mathbf{u}^{*}_i)^t\mathbf{B}^U P\mathbf{u}_i\Bigg(\frac{\lambda_1}{\lambda_i}\Bigg)^{2m-1}}
@@ -484,27 +486,27 @@ Then it returns the triplet $(\lambda_{j,n},u_{j,n},u_{j,n}^*)$ on the refined m
 \begin{algorithm}[H] \caption{Picard's method with orthogonalization} \label{alg:picard_ortho} 
 \begin{algorithmic}
 
-\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{PicardOrtho}
+\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{PicardOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},\mathrm{AbsTol},$}
 \STATE{$\quad \quad u_{1,n},\dots
     ,u_{j-1,n},u_{1,n}^*,\dots
     ,u_{j-1,n}^*)$}
     
 
-\STATE{$\mathbf{u}^1:=\tilde u_{j,n-1}$}
-\STATE{$\mathbf{u}^{1,*}:=\tilde u_{j,n-1}^*$}
-\STATE{$\displaystyle\lambda^{1}:=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
+\STATE{$\mathbf{u}^1=\tilde u_{j,n-1}$}
+\STATE{$\mathbf{u}^{1,*}=\tilde u_{j,n-1}^*$}
+\STATE{$\displaystyle\lambda^{1}=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
 \STATE{$m=1$}
 \REPEAT
 
-\STATE{$\mathbf{u}^{m+1}:=\mathbf{A}^{-1}\lambda^m\mathbf{B}\mathbf{u}^{m}$}
-\STATE{$\mathbf{u}^{m+1,*}:=(\mathbf{A}^*)^{-1}\lambda^{m}\mathbf{B}^*\mathbf{u}^{m,*}$}
+\STATE{$\mathbf{u}^{m+1}=\mathbf{A}^{-1}\lambda^m\mathbf{B}\mathbf{u}^{m}$}
+\STATE{$\mathbf{u}^{m+1,*}=(\mathbf{A}^*)^{-1}\lambda^{m}\mathbf{B}^*\mathbf{u}^{m,*}$}
 
 
 \FOR{$i = 1$ to $j-1$} 
-\STATE $\mathbf{u}^{m+1}:=\mathbf{u}^{m+1}-((P^*u_{i,n}^*)^t\mathbf{B}^U P\mathbf{u}^{m+1})u_{i,n}$
+\STATE $\mathbf{u}^{m+1}=\mathbf{u}^{m+1}-((P^*u_{i,n}^*)^t\mathbf{B}^U P\mathbf{u}^{m+1})u_{i,n}$
 \COMMENT{Orthogonalization}
-\STATE $\mathbf{u}^{m+1,*}:=\mathbf{u}^{m+1,*}-(P^*u_{i,n}^t\mathbf{B}^U P\mathbf{u}^{m+1,*})u_{i,n}^*$
+\STATE $\mathbf{u}^{m+1,*}=\mathbf{u}^{m+1,*}-(P^*u_{i,n}^t\mathbf{B}^U P\mathbf{u}^{m+1,*})u_{i,n}^*$
 \COMMENT{Orthogonalization}
 \ENDFOR
 
@@ -513,13 +515,13 @@ Then it returns the triplet $(\lambda_{j,n},u_{j,n},u_{j,n}^*)$ on the refined m
 \COMMENT{Normalization}
 \STATE $\displaystyle \mathbf{u}^{m+1,*}=\frac{\mathbf{u}^{m+1,*}}{|(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}|^{1/2}}$
 \COMMENT{Normalization}
-\STATE{$\displaystyle\lambda^{m+1}:=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
-\STATE{$m:=m+1$}
+\STATE{$\displaystyle\lambda^{m+1}=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
+\STATE{$m=m+1$}
 \UNTIL{ $\max\{\frac{\|\mathbf{u}^{m}-\mathbf{u}^{m-1}\|_1}{\|\mathbf{u}^{m-1}\|_1},\frac{\|\mathbf{u}^{m,*}-\mathbf{u}^{m-1,*}\|_1}{\|\mathbf{u}^{m-1,*}\|_1}\}<\mathrm{Tol}$ \bf{or}
 $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
-\STATE{$u_{j,n}:=\mathbf{u}^{m}$}
-\STATE{$u_{j,n}^*:=\mathbf{u}^{m,*}$}
-\STATE{$\lambda_{j,n}:=\lambda^m$}
+\STATE{$u_{j,n}=\mathbf{u}^{m}$}
+\STATE{$u_{j,n}^*=\mathbf{u}^{m,*}$}
+\STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -554,9 +556,9 @@ Then, the Rayleigh quotient converges to $\lambda_j$ by the same arguments use b
 \section{Newton's Method with Orthogonalization}\label{sec:newton}
 
 
-The second iterative method that we are going to propose is based on the Newton's method applied to eigenvalue problems. Denoting by $\tilde x:=(x,\lambda)$, we have that problem \eqref{eq:var_prob} only for the left eigenfunction can be rewritten in the form
+The second iterative method that we are going to propose is based on the Newton's method applied to eigenvalue problems. Denoting by $\tilde x=(x,\lambda)$, we have that problem \eqref{eq:var_prob} only for the left eigenfunction can be rewritten in the form
 $$
-0=f(\tilde x):=
+0=f(\tilde x)=
 \left(
 \begin{array}{lcl}
 A x&-& \lambda\ Bx
@@ -565,13 +567,13 @@ A x&-& \lambda\ Bx
 \end{array}\quad
 \right) ,
 $$
-then denoting by $\tilde h:=(h, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
+then denoting by $\tilde h=(h, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
 \begin{equation}\label{eq:newton}
 f(\tilde x + \tilde h)\approx f(\tilde x) + J_f(\tilde x)\cdot \tilde h, 
 \end{equation}
 where the Jacobian matrix is defined as
 $$
-J_f(\tilde x):=
+J_f(\tilde x)=
 \left(
 \begin{array}{lr}
 A - B\lambda & -Bx
@@ -587,9 +589,9 @@ $$
 J_f(\tilde x)\cdot \tilde h = - f(\tilde x),
 $$
 which defines the linear problem of the Newton's method that we are solving.
-Similarly, denoting by $\tilde x^*:=(x^*,\lambda)$, we have that problem \eqref{eq:var_prob} only for the right eigenfunction can be rewritten in the form
+Similarly, denoting by $\tilde x^*=(x^*,\lambda)$, we have that problem \eqref{eq:var_prob} only for the right eigenfunction can be rewritten in the form
 $$
-0=f^*(\tilde x^*):=
+0=f^*(\tilde x^*)=
 \left(
 \begin{array}{lcl}
 A^* x^*&-& \lambda\ B^*x^*
@@ -598,13 +600,13 @@ A^* x^*&-& \lambda\ B^*x^*
 \end{array}\quad
 \right) ,
 $$
-then denoting by $\tilde h^*:=(h^*, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
+then denoting by $\tilde h^*=(h^*, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
 \begin{equation}\label{eq:newton_star}
 f^*(\tilde x^* + \tilde h^*)\approx f^*(\tilde x^*) + J_f^*(\tilde x^*)\cdot \tilde h^*, 
 \end{equation}
 where the Jacobian matrix is defined as
 $$
-J_f^*(\tilde x^*):=
+J_f^*(\tilde x^*)=
 \left(
 \begin{array}{lr}
 A^* - B^*\lambda & -B^*x^*
@@ -629,27 +631,27 @@ which defines the linear problem of the Newton's method that we are solving.
 \begin{algorithm}[!ht] \caption{Newton's method} \label{alg:newton} 
 \begin{algorithmic}
 
-\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{Newton}
+\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{Newton}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u,\tilde u^*,\mathrm{Tol},\mathrm{AbsTol})$}
 
-\STATE{$\mathbf{u}^1:=\tilde u$}
-\STATE{$\mathbf{u}^{1,*}:=\tilde u^*$}
-\STATE{$\displaystyle\lambda^{1}:=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
+\STATE{$\mathbf{u}^1=\tilde u$}
+\STATE{$\mathbf{u}^{1,*}=\tilde u^*$}
+\STATE{$\displaystyle\lambda^{1}=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
 \STATE{$m=1$}
 \REPEAT
 
 \STATE{Solve $J_f(\mathbf{u}^m,\lambda^m)\cdot \tilde h = - f(\mathbf{u}^m,\lambda^m)$}
-\STATE{$\mathbf{u}^{m+1}:=\mathbf{u}^m+h$}
-\STATE{$\lambda^{m+1}:=\lambda^m+\delta$}
+\STATE{$\mathbf{u}^{m+1}=\mathbf{u}^m+h$}
+\STATE{$\lambda^{m+1}=\lambda^m+\delta$}
 \STATE{Solve $J_f^*(\mathbf{u}^{m,*},\lambda^{m+1})\cdot \tilde h^* = - f^*(\mathbf{u}^{m,*},\lambda^{m+1})$}
-\STATE{$\lambda^{m+1}:=\lambda^{m+1}+\delta$}
-\STATE{$\mathbf{u}^{m+1,*}:=\mathbf{u}^{m,*}+h^*$}
-\STATE{$m:=m+1$}
+\STATE{$\lambda^{m+1}=\lambda^{m+1}+\delta$}
+\STATE{$\mathbf{u}^{m+1,*}=\mathbf{u}^{m,*}+h^*$}
+\STATE{$m=m+1$}
 \UNTIL{ $\max\{\frac{\|\mathbf{u}^{m}-\mathbf{u}^{m-1}\|_1}{\|\mathbf{u}^{m-1}\|_1},\frac{\|\mathbf{u}^{m,*}-\mathbf{u}^{m-1,*}\|_1}{\|\mathbf{u}^{m-1,*}\|_1}\}<\mathrm{Tol}$ \bf{or}
 $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
-\STATE{$u_{j,n}:=\mathbf{u}^{m}$}
-\STATE{$u_{j,n}^*:=\mathbf{u}^{m,*}$}
-\STATE{$\lambda_{j,n}:=\lambda^m$}
+\STATE{$u_{j,n}=\mathbf{u}^{m}$}
+\STATE{$u_{j,n}^*=\mathbf{u}^{m,*}$}
+\STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -657,31 +659,31 @@ In order to make the method suitable for all eigenpairs, we are going write a ve
 \begin{algorithm}[!ht] \caption{Newton's method with orthogonalization} \label{alg:newton_ortho} 
 \begin{algorithmic}
 
-\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{NewtonOrtho}
+\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{NewtonOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},\mathrm{AbsTol},$}
 \STATE{$\quad \quad u_{1,n},\dots
     ,u_{j-1,n},u_{1,n}^*,\dots
     ,u_{j-1,n}^*)$}
     
 
-\STATE{$\mathbf{u}^1:=\tilde u_{j,n-1}$}
-\STATE{$\mathbf{u}^{1,*}:=\tilde u_{j,n-1}^*$}
-\STATE{$\displaystyle\lambda^{1}:=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
+\STATE{$\mathbf{u}^1=\tilde u_{j,n-1}$}
+\STATE{$\mathbf{u}^{1,*}=\tilde u_{j,n-1}^*$}
+\STATE{$\displaystyle\lambda^{1}=\frac{(P^*\mathbf{u}^{1,*})^t\mathbf{A}^U P\mathbf{u}^{1}}{(P^*\mathbf{u}^{1,*})^t\mathbf{B}^U P\mathbf{u}^{1}}$}
 \STATE{$m=1$}
 \REPEAT
 
 \STATE{Solve $J_f(\mathbf{u}^m,\lambda^m)\cdot \tilde h = - f(\mathbf{u}^m,\lambda^m)$}
-\STATE{$\mathbf{u}^{m+1}:=\mathbf{u}^m+h$}
-\STATE{$\lambda^{m+1}:=\lambda^m+\delta$}
+\STATE{$\mathbf{u}^{m+1}=\mathbf{u}^m+h$}
+\STATE{$\lambda^{m+1}=\lambda^m+\delta$}
 \STATE{Solve $J_f^*(\mathbf{u}^{m,*},\lambda^{m+1})\cdot \tilde h^* = - f^*(\mathbf{u}^{m,*},\lambda^{m+1})$}
-\STATE{$\lambda^{m+1}:=\lambda^{m+1}+\delta$}
-\STATE{$\mathbf{u}^{m+1,*}:=\mathbf{u}^{m,*}+h^*$}
+\STATE{$\lambda^{m+1}=\lambda^{m+1}+\delta$}
+\STATE{$\mathbf{u}^{m+1,*}=\mathbf{u}^{m,*}+h^*$}
 
 
 \FOR{$i = 1$ to $j-1$} 
-\STATE $\mathbf{u}^{m+1}:=\mathbf{u}^{m+1}-((u_{i,n}^*)^t\mathbf{B}\mathbf{u}^{m+1})u_{i,n}$
+\STATE $\mathbf{u}^{m+1}=\mathbf{u}^{m+1}-((u_{i,n}^*)^t\mathbf{B}\mathbf{u}^{m+1})u_{i,n}$
 \COMMENT{Orthogonalization}
-\STATE $\mathbf{u}^{m+1,*}:=\mathbf{u}^{m+1,*}-(u_{i,n}^t\mathbf{B}\mathbf{u}^{m+1,*})u_{i,n}^*$
+\STATE $\mathbf{u}^{m+1,*}=\mathbf{u}^{m+1,*}-(u_{i,n}^t\mathbf{B}\mathbf{u}^{m+1,*})u_{i,n}^*$
 \COMMENT{Orthogonalization}
 \ENDFOR
 
@@ -690,13 +692,13 @@ In order to make the method suitable for all eigenpairs, we are going write a ve
 \COMMENT{Normalization}
 \STATE $\displaystyle \mathbf{u}^{m+1,*}=\frac{\mathbf{u}^{m+1,*}}{|(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}|^{1/2}}$
 \COMMENT{Normalization}
-\STATE{$\displaystyle\lambda^{m+1}:=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
-\STATE{$m:=m+1$}
+\STATE{$\displaystyle\lambda^{m+1}=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}$}
+\STATE{$m=m+1$}
 \UNTIL{ $\max\{\frac{\|\mathbf{u}^{m}-\mathbf{u}^{m-1}\|_1}{\|\mathbf{u}^{m-1}\|_1},\frac{\|\mathbf{u}^{m,*}-\mathbf{u}^{m-1,*}\|_1}{\|\mathbf{u}^{m-1,*}\|_1}\}<\mathrm{Tol}$ \bf{or}
 $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
-\STATE{$u_{j,n}:=\mathbf{u}^{m}$}
-\STATE{$u_{j,n}^*:=\mathbf{u}^{m,*}$}
-\STATE{$\lambda_{j,n}:=\lambda^m$}
+\STATE{$u_{j,n}=\mathbf{u}^{m}$}
+\STATE{$u_{j,n}^*=\mathbf{u}^{m,*}$}
+\STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -716,7 +718,7 @@ $$
 \mathbf{u}^{m+1,*}=\sum_{i=1}^{N^*} c_i^{m+1,*} \mathbf{u}_i^*,
 $$
 where $c_i^{m+1}$ are real coefficients and the vectors $\mathbf{u}_i^*\equiv u_{i,n}^*$ are the eigenvectors of the discrete problem, which are sorted accordingly the magnitude of the corresponding eigenvalues $\lambda_i$
-In particular, when $\mathbf{u}^{m+1}:=\mathbf{u}^m+h$, $\mathbf{u}^{m+1,*}:=\mathbf{u}^{m,*}+h^*$, we have that, after the application of the orthogonalization step, the resulting vectors are
+In particular, when $\mathbf{u}^{m+1}=\mathbf{u}^m+h$, $\mathbf{u}^{m+1,*}=\mathbf{u}^{m,*}+h^*$, we have that, after the application of the orthogonalization step, the resulting vectors are
 $$
 \mathbf{\hat u}^{m+1}=\sum_{i=j}^N c_i^{m+1} \mathbf{u}_i\ ,
 $$
@@ -726,7 +728,7 @@ $$
 $$
 Then, it is straightforward to see that the Rayleigh quotient
 $$
-\displaystyle\lambda^{m+1}:=\frac{(P^*\mathbf{\hat u}^{m+1,*})^t\mathbf{A}^U P\mathbf{\hat u}^{m+1}}{(P^*\mathbf{\hat u}^{m+1,*})^t\mathbf{B}^U P\mathbf{\hat u}^{m+1}} \ge \lambda_j.
+\displaystyle\lambda^{m+1}=\frac{(P^*\mathbf{\hat u}^{m+1,*})^t\mathbf{A}^U P\mathbf{\hat u}^{m+1}}{(P^*\mathbf{\hat u}^{m+1,*})^t\mathbf{B}^U P\mathbf{\hat u}^{m+1}} \ge \lambda_j.
 $$
 \end{proof}
 
@@ -750,7 +752,7 @@ by refining all elements in space and moreover increasing their polynomial degre
 A generalized eigensolver is called one time only, 
 to obtain a solution triplet $(\lambda^c_{0}, u^c_{0}, u^{c,*}_{0})$
 on the initial coarse meshes $\cT^c_{0}$ and $\cT^{c,*}_{0}$.}
-\STATE{Set $k := 0$}
+\STATE{Set $k = 0$}
 \REPEAT
 \STATE{Project the approximation $u^c_{k}$ to the mesh $\cT^f_{k}$ and the approximation $u^{c,*}_{k}$ to the mesh $\cT^{f,*}_{k}$. The projection 
        is denoted by $P^f_k u^c_{k}$ and by $P^{f,*}_k u^{c,*}_{k}$. Since the finite element spaces on meshes 
@@ -781,7 +783,7 @@ Note: $e^c_{k}$ and $e^{c,*}_{k}$ are functions, not numbers.}
 \STATE{
  Use $e^c_{k}$ and $e^{c,*}_{k}$ to guide one step of automatic $hp$-adaptivity \cite{solin3} that 
  yields the new coarse meshes $\cT^f_{k+1}$ and $\cT^{f,*}_{k+1}$.}
-\STATE{Update $k := k+1$}
+\STATE{Update $k = k+1$}
 \UNTIL{The $H^1$-norms of $e^c_{k-1}$ and $e^{c,*}_{k-1}$ are sufficiently small.}
 \end{algorithmic}
 \end{algorithm}
@@ -844,7 +846,7 @@ The triplet $(\Lambda_n,U_n,U_n^*)$ is not a discrete eigentriplet of problem \e
 In this section we present two algorithms to compute approximations of eigenpairs. Each algorithm is based on a different method to compute the discrete spectrum, but both of them use the reconstruction technology to keep track of the eigenfunction of interest.
 
 In all algorithms we are going to use on the initial mesh an iterative eigensolver with calling interface
-$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)_{j=1}^{i}\}:=\mathrm{Eigensolver}(\mathbf{A},
+$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)_{j=1}^{i}\}=\mathrm{Eigensolver}(\mathbf{A},
 \mathbf{A}^*,\mathbf{B},\mathbf{B}^*,i,\mathrm{Tol},\mathrm{MaxIter})$, that computes the set of discrete triplets $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=1}^{i}$ and where $\mathbf{A}$ and $\mathbf{A}^*$ are the stiffness matrices of the problems, $\mathbf{B}$ and $\mathbf{B}^*$ are the mass matrices of the problems, $i$ is the number of eigenpairs to compute, $\mathrm{Tol}$ is the requested tolerance for the eigenpairs and $\mathrm{MaxIter}$ is the maximum number of iterations. 
 
 
@@ -853,21 +855,21 @@ All algorithm we describe below are based on the reconstruction technology which
 \begin{algorithm}[!ht] \caption{Reconstruction algorithm} \label{alg:reconstruction} 
 \begin{algorithmic}
 
-\STATE{$(\Lambda_n,U_n,U_n^*):=\mathrm{Reconstruction}
+\STATE{$(\Lambda_n,U_n,U_n^*)=\mathrm{Reconstruction}
     (\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}},
 (\Lambda_{n-1},U_{n-1},U_{n-1}^*))$}
 
-\STATE{Compute $\displaystyle U_n:=\sum_{i=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}}
+\STATE{Compute $\displaystyle U_n=\sum_{i=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}}
 b(U_{n-1},u_{i,n}^*)u_{i,n}$}
 
-\STATE{Compute $\displaystyle U_n^*:=\sum_{i=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}}
+\STATE{Compute $\displaystyle U_n^*=\sum_{i=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}}
 b(u_{i,n},U_{n-1}^*)u_{i,n}^*$}
 
-\STATE{$\displaystyle U_n:=\frac{U_n}{|b(U_n,U_n^*)|^{1/2}}$}
+\STATE{$\displaystyle U_n=\frac{U_n}{|b(U_n,U_n^*)|^{1/2}}$}
 \COMMENT{Normalization}
-\STATE{$\displaystyle U_n^*:=\frac{U_n^*}{|b(U_n,U_n^*)|^{1/2}}$}
+\STATE{$\displaystyle U_n^*=\frac{U_n^*}{|b(U_n,U_n^*)|^{1/2}}$}
 \COMMENT{Normalization}
-\STATE{$\displaystyle\Lambda_n:=\frac{a(U_n,U_n^*)}{b(U_n,U_n^*)}$}
+\STATE{$\displaystyle\Lambda_n=\frac{a(U_n,U_n^*)}{b(U_n,U_n^*)}$}
 
 \end{algorithmic}
 \end{algorithm}
@@ -878,7 +880,7 @@ The first method is based on the Picard's method. The only three parameters not 
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Picard's method} \label{alg:picard_adapt} 
 \begin{algorithmic}
 
-\STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{PicardAdapt}
+\STATE{$(\Lambda_M,U_M,U_M^*)=\mathrm{PicardAdapt}
     (\mathcal{T}_0, \mathcal{T}_0^*, V_0, V_0^*, M,\mathrm{err},\mathrm{Tol},\mathrm{AbsTol},\mathrm{MaxIter}
 ,\mathrm{DTE},\mathrm{FIE},\mathrm{TE})$}
 
@@ -886,26 +888,26 @@ The first method is based on the Picard's method. The only three parameters not 
 
 \STATE{Construct $\mathbf{A}_0$, $\mathbf{A}_0^*$, $\mathbf{A}_0^U$ and $\mathbf{B}_0$, $\mathbf{B}_0^*$, $\mathbf{B}_0^U$}
 
-\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,
+\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,
 \mathrm{DTE}+\mathrm{FIE},$}
 \STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-%\STATE{$\{(\lambda_{j,0}^*,u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0^*,\mathbf{B}_0,
+%\STATE{$\{(\lambda_{j,0}^*,u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0^*,\mathbf{B}_0,
 %\mathrm{DTE}+\mathrm{FIE},$}
 %\STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-\STATE{$(\Lambda_0,U_0,U_0^*):=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
+\STATE{$(\Lambda_0,U_0,U_0^*)=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
 %\STATE{Compute the residual $\eta$ for the couple $(\Lambda_0,U_0)$}
-\STATE{$m:=1$}
+\STATE{$m=1$}
 \REPEAT
 \STATE{Construct the mesh $\mathcal{T}_m$ and the finite element space $V_m$ adapting $\mathcal{T}_{m-1}$ and $V_{m-1}$}
 \STATE{Construct the mesh $\mathcal{T}_m^*$ and the finite element space $V_m^*$ adapting $\mathcal{T}_{m-1}^*$ and $V_{m-1}^*$}
 \STATE{Construct $\mathbf{A}_m$, $\mathbf{A}_m^*$, $\mathbf{A}_m^U$ and $\mathbf{B}_m$, $\mathbf{B}_m^*$, $\mathbf{B}_m^U$}
-\STATE{$(\lambda_{1,m},u_{1,m},u_{1,m}^*):=\mathrm{Picard}
+\STATE{$(\lambda_{1,m},u_{1,m},u_{1,m}^*)=\mathrm{Picard}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,u_{1,m-1},u_{1,m-1}^*,\mathrm{Tol},\mathrm{AbsTol})$}
 \STATE{$j=1$}
 \FOR{$j = 2$ to $\mathrm{DTE}+\mathrm{FIE}$}
 
 
-\STATE{$(\lambda_{j,m},u_{j,m},u_{j,m}^*):=\mathrm{PicardOrtho}
+\STATE{$(\lambda_{j,m},u_{j,m},u_{j,m}^*)=\mathrm{PicardOrtho}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,u_{j,m-1},u_{j,m-1}^*,\mathrm{Tol},$}
 \STATE{$\quad \quad \mathrm{AbsTol},u_{1,m},\dots
     ,u_{j-1,m},u_{1,m}^*,\dots
@@ -914,17 +916,17 @@ The first method is based on the Picard's method. The only three parameters not 
 
 
 \ENDFOR
-\STATE{$(\Lambda_m,U_m,U_m^*):=\mathrm{Reconstruction}
+\STATE{$(\Lambda_m,U_m,U_m^*)=\mathrm{Reconstruction}
     (\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}},
 (\Lambda_{m-1},U_{m-1}))$}
 
 \STATE{Compute the a-posteriori error estimator $e^c_{m}$ as in Algorithm~\ref{alg:hp}}
 \STATE{Compute the a-posteriori error estimator $e^{c,*}_{m}$ as in Algorithm~\ref{alg:hp}}
-\STATE{$m:=m+1$}
+\STATE{$m=m+1$}
 \UNTIL{ $m> M$ \bf{or} $\max\{e^c_{m-1},e^{c,*}_{m-1}\} \leq \mathrm{err}$}
-\STATE{$\Lambda_M:=\Lambda_{m-1}$}
-\STATE{$U_M:=U_{m-1}$}
-\STATE{$U_M^*:=U_{m-1}^*$}
+\STATE{$\Lambda_M=\Lambda_{m-1}$}
+\STATE{$U_M=U_{m-1}$}
+\STATE{$U_M^*=U_{m-1}^*$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -933,7 +935,7 @@ Similarly we define the adaptive method based on the Newton's method.
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Newton's method} \label{alg:newton_adapt} 
 \begin{algorithmic}
 
-\STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{NewtonAdapt}
+\STATE{$(\Lambda_M,U_M,U_M^*)=\mathrm{NewtonAdapt}
     (\mathcal{T}_0, \mathcal{T}_0^*, V_0, V_0^*, M,\mathrm{err},\mathrm{Tol},\mathrm{AbsTol},\mathrm{MaxIter}
 ,\mathrm{DTE},\mathrm{FIE},\mathrm{TE})$}
 
@@ -941,26 +943,26 @@ Similarly we define the adaptive method based on the Newton's method.
 
 \STATE{Construct $\mathbf{A}_0$, $\mathbf{A}_0^*$, $\mathbf{A}_0^U$ and $\mathbf{B}_0$, $\mathbf{B}_0^*$, $\mathbf{B}_0^U$}
 
-\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,
+\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,
 \mathrm{DTE}+\mathrm{FIE},$}
 \STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-%\STATE{$\{(\lambda_{j,0}^*,u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0^*,\mathbf{B}_0,
+%\STATE{$\{(\lambda_{j,0}^*,u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0^*,\mathbf{B}_0,
 %\mathrm{DTE}+\mathrm{FIE},$}
 %\STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-\STATE{$(\Lambda_0,U_0,U_0^*):=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
+\STATE{$(\Lambda_0,U_0,U_0^*)=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
 %\STATE{Compute the residual $\eta$ for the couple $(\Lambda_0,U_0)$}
-\STATE{$m:=1$}
+\STATE{$m=1$}
 \REPEAT
 \STATE{Construct the mesh $\mathcal{T}_m$ and the finite element space $V_m$ adapting $\mathcal{T}_{m-1}$ and $V_{m-1}$}
 \STATE{Construct the mesh $\mathcal{T}_m^*$ and the finite element space $V_m^*$ adapting $\mathcal{T}_{m-1}^*$ and $V_{m-1}^*$}
 \STATE{Construct $\mathbf{A}_m$, $\mathbf{A}_m^*$, $\mathbf{A}_m^U$ and $\mathbf{B}_m$, $\mathbf{B}_m^*$, $\mathbf{B}_m^U$}
-\STATE{$(\lambda_{1,m},u_{1,m},u_{1,m}^*):=\mathrm{Newton}
+\STATE{$(\lambda_{1,m},u_{1,m},u_{1,m}^*)=\mathrm{Newton}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,u_{1,m-1},u_{1,m-1}^*,\mathrm{Tol},\mathrm{AbsTol})$}
 \STATE{$j=1$}
 \FOR{$j = 2$ to $\mathrm{DTE}+\mathrm{FIE}$}
 
 
-\STATE{$(\lambda_{j,m},u_{j,m},u_{j,m}^*):=\mathrm{NewtonOrtho}
+\STATE{$(\lambda_{j,m},u_{j,m},u_{j,m}^*)=\mathrm{NewtonOrtho}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,u_{j,m-1},u_{j,m-1}^*,\mathrm{Tol},$}
 \STATE{$\quad \quad \mathrm{AbsTol},u_{1,m},\dots
     ,u_{j-1,m},u_{1,m}^*,\dots
@@ -969,17 +971,17 @@ Similarly we define the adaptive method based on the Newton's method.
 
 
 \ENDFOR
-\STATE{$(\Lambda_m,U_m,U_m^*):=\mathrm{Reconstruction}
+\STATE{$(\Lambda_m,U_m,U_m^*)=\mathrm{Reconstruction}
     (\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}},
 (\Lambda_{m-1},U_{m-1}))$}
 
 \STATE{Compute the a-posteriori error estimator $e^c_{m}$ as in Algorithm~\ref{alg:hp}}
 \STATE{Compute the a-posteriori error estimator $e^{c,*}_{m}$ as in Algorithm~\ref{alg:hp}}
-\STATE{$m:=m+1$}
+\STATE{$m=m+1$}
 \UNTIL{ $m> M$ \bf{or} $\max\{e^c_{m-1},e^{c,*}_{m-1}\} \leq \mathrm{err}$}
-\STATE{$\Lambda_M:=\Lambda_{m-1}$}
-\STATE{$U_M:=U_{m-1}$}
-\STATE{$U_M^*:=U_{m-1}^*$}
+\STATE{$\Lambda_M=\Lambda_{m-1}$}
+\STATE{$U_M=U_{m-1}$}
+\STATE{$U_M^*=U_{m-1}^*$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -999,32 +1001,32 @@ The algorithm ends when all eigentriplets in $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*
 \begin{algorithm}[!ht] \caption{Picard's method with improved orthogonalization} \label{alg:picard_importho} 
 \begin{algorithmic}
 
-\STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{PicardImpOrtho}
+\STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{PicardImpOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,$}
     \STATE{$\quad \quad \{(\tilde\lambda_{j,n-1},\tilde u_{j,n-1},\tilde u_{j,n-1}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}},\mathrm{ThO})$}
-\STATE{$\mathcal{D}:=\O$}
-\STATE{$\mathcal{D}^*:=\O$}
-%\STATE{$m:=1$}
-\STATE{$j:=\mathrm{DTE}+\mathrm{FIE}$}
+\STATE{$\mathcal{D}=\O$}
+\STATE{$\mathcal{D}^*=\O$}
+%\STATE{$m=1$}
+\STATE{$j=\mathrm{DTE}+\mathrm{FIE}$}
 \REPEAT
 \IF {$j\ge \mathrm{FIE}$}
-%\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{PicardOrtho}
+%\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{PicardOrtho}
 %    (\mathbf{A}, \mathbf{A}^*, \mathbf{B},\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},\mathrm{AbsTol},\mathcal{D},\mathcal{D}^*)$}
-    \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{PicardOrtho}
+    \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{PicardOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},$}
     \STATE{$\quad \quad \mathrm{AbsTol},\mathcal{D},\mathcal{D}^*)$}
-    %\STATE{$m:=m+1$}
+    %\STATE{$m=m+1$}
     \STATE{Add $u_{j,n}$ to $\mathcal{D}$}
     \STATE{Add $u_{j,n}^*$ to $\mathcal{D}^*$}
-    \STATE{$\mathrm{inner}:=0$}
-    \STATE{$\mathrm{inner}^*:=0$}
+    \STATE{$\mathrm{inner}=0$}
+    \STATE{$\mathrm{inner}^*=0$}
     \FOR{$i = \mathrm{FIE} \to \mathrm{DTE}+\mathrm{FIE}$}
-        \STATE{$\mathrm{inner}:=\mathrm{inner}+(P^*u_{j,n}^*)^t\mathbf{B}^U P\tilde u_{i,n-1}$}
-        \STATE{$\mathrm{inner}^*:=\mathrm{inner}+(P^*\tilde u_{i,n-1}^*)^t\mathbf{B}^U P u_{j,n}$}
-        \STATE{$\mathrm{inner}:=\max\{\mathrm{inner},\mathrm{inner}^* \}$}
+        \STATE{$\mathrm{inner}=\mathrm{inner}+(P^*u_{j,n}^*)^t\mathbf{B}^U P\tilde u_{i,n-1}$}
+        \STATE{$\mathrm{inner}^*=\mathrm{inner}+(P^*\tilde u_{i,n-1}^*)^t\mathbf{B}^U P u_{j,n}$}
+        \STATE{$\mathrm{inner}=\max\{\mathrm{inner},\mathrm{inner}^* \}$}
     \ENDFOR
     \IF {$\mathrm{inner}>\mathrm{ThO}$}
-       \STATE{$j:=j-1$}
+       \STATE{$j=j-1$}
     \ENDIF
 \ENDIF
 
@@ -1035,32 +1037,32 @@ The algorithm ends when all eigentriplets in $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*
 \begin{algorithm}[!ht] \caption{Newton's method with improved orthogonalization} \label{alg:newton_importho} 
 \begin{algorithmic}
 
-\STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{NewtonImpOrtho}
+\STATE{$\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{NewtonImpOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,$}
     \STATE{$\quad \quad \{(\tilde\lambda_{j,n-1},\tilde u_{j,n-1},\tilde u_{j,n-1}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}},\mathrm{ThO})$}
-\STATE{$\mathcal{D}:=\O$}
-\STATE{$\mathcal{D}^*:=\O$}
-%\STATE{$m:=1$}
-\STATE{$j:=\mathrm{DTE}+\mathrm{FIE}$}
+\STATE{$\mathcal{D}=\O$}
+\STATE{$\mathcal{D}^*=\O$}
+%\STATE{$m=1$}
+\STATE{$j=\mathrm{DTE}+\mathrm{FIE}$}
 \REPEAT
 \IF {$j\ge \mathrm{FIE}$}
-%\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{PicardOrtho}
+%\STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{PicardOrtho}
 %    (\mathbf{A}, \mathbf{A}^*, \mathbf{B},\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},\mathrm{AbsTol},\mathcal{D},\mathcal{D}^*)$}
-    \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*):=\mathrm{NewtonOrtho}
+    \STATE{$(\lambda_{j,n},u_{j,n},u_{j,n}^*)=\mathrm{NewtonOrtho}
     (\mathbf{A}, \mathbf{A}^*, \mathbf{A}^U, \mathbf{B}, \mathbf{B}^*, \mathbf{B}^U,\tilde u_{j,n-1},\tilde u_{j,n-1}^*,\mathrm{Tol},$}
     \STATE{$\quad \quad \mathrm{AbsTol},\mathcal{D},\mathcal{D}^*)$}
-    %\STATE{$m:=m+1$}
+    %\STATE{$m=m+1$}
     \STATE{Add $u_{j,n}$ to $\mathcal{D}$}
     \STATE{Add $u_{j,n}^*$ to $\mathcal{D}^*$}
-    \STATE{$\mathrm{inner}:=0$}
-    \STATE{$\mathrm{inner}^*:=0$}
+    \STATE{$\mathrm{inner}=0$}
+    \STATE{$\mathrm{inner}^*=0$}
     \FOR{$i = \mathrm{FIE} \to \mathrm{DTE}+\mathrm{FIE}$}
-        \STATE{$\mathrm{inner}:=\mathrm{inner}+(P^*u_{j,n}^*)^t\mathbf{B}^U P\tilde u_{i,n-1}$}
-        \STATE{$\mathrm{inner}^*:=\mathrm{inner}+(P^*\tilde u_{i,n-1}^*)^t\mathbf{B}^U P u_{j,n}$}
-        \STATE{$\mathrm{inner}:=\max\{\mathrm{inner},\mathrm{inner}^* \}$}
+        \STATE{$\mathrm{inner}=\mathrm{inner}+(P^*u_{j,n}^*)^t\mathbf{B}^U P\tilde u_{i,n-1}$}
+        \STATE{$\mathrm{inner}^*=\mathrm{inner}+(P^*\tilde u_{i,n-1}^*)^t\mathbf{B}^U P u_{j,n}$}
+        \STATE{$\mathrm{inner}=\max\{\mathrm{inner},\mathrm{inner}^* \}$}
     \ENDFOR
     \IF {$\mathrm{inner}>\mathrm{ThO}$}
-       \STATE{$j:=j-1$}
+       \STATE{$j=j-1$}
     \ENDIF
 \ENDIF
 
@@ -1077,38 +1079,38 @@ We conclude this section stating the adaptive algorithms with improved orthogona
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Picard's method with improved orthogonality} \label{alg:picard_impadapt} 
 \begin{algorithmic}
 
-\STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{PicardImpAdapt}
+\STATE{$(\Lambda_M,U_M,U_M^*)=\mathrm{PicardImpAdapt}
     (\mathcal{T}_0, \mathcal{T}_0^*, V_0, V_0^*, M,\mathrm{err},\mathrm{Tol},\mathrm{MaxIter}
 ,\mathrm{DTE},\mathrm{FIE},\mathrm{TE},\mathrm{ThO})$}
 
 \STATE{Construct $\mathbf{A}_0$, $\mathbf{A}_0^*$ and $\mathbf{B}_0$}
 
-\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,\mathbf{B}_0^*,
+\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,\mathbf{B}_0^*,
 \mathrm{DTE}+\mathrm{FIE},$}
 \STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-\STATE{$(\Lambda_0,U_0,U_0^*):=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
+\STATE{$(\Lambda_0,U_0,U_0^*)=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
 %\STATE{Compute the residual $\eta$ for the couple $(\Lambda_0,U_0)$}
-\STATE{$m:=1$}
+\STATE{$m=1$}
 \REPEAT
 \STATE{Construct the mesh $\mathcal{T}_m$ and the finite element space $V_m$ adapting $\mathcal{T}_{m-1}$ and $V_{m-1}$}
 \STATE{Construct the mesh $\mathcal{T}_m^*$ and the finite element space $V_m^*$ adapting $\mathcal{T}_{m-1}^*$ and $V_{m-1}^*$}
 \STATE{Construct $\mathbf{A}_m$, $\mathbf{A}_m^*$, $\mathbf{A}_m^U$, $\mathbf{B}_m$, $\mathbf{B}_m^*$, $\mathbf{B}_m^U$}
-\STATE{$\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{PicardImpOrtho}
+\STATE{$\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{PicardImpOrtho}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,$}
     \STATE{$\quad \quad \{(\tilde\lambda_{j,n-1},\{(\lambda_{j,m-1}, u_{j,m-1}, u_{j,m-1}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}},\mathrm{ThO})$}
     
 
-\STATE{$(\Lambda_m,U_m,U_m^*):=\mathrm{Reconstruction}
+\STATE{$(\Lambda_m,U_m,U_m^*)=\mathrm{Reconstruction}
     (\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}},
 (\Lambda_{m-1},U_{m-1},U_{m-1}^*))$}
 
 \STATE{Compute the a-posteriori error estimator $e^c_{m}$ as in Algorithm~\ref{alg:hp}}
 \STATE{Compute the a-posteriori error estimator $e^{c,*}_{m}$ as in Algorithm~\ref{alg:hp}}
-\STATE{$m:=m+1$}
+\STATE{$m=m+1$}
 \UNTIL{ $m> M$ \bf{or} $\max\{e^c_{m-1},e^{c,*}_{m-1}\} \leq \mathrm{err}$}
-\STATE{$\Lambda_M:=\Lambda_{m-1}$}
-\STATE{$U_M:=U_{m-1}$}
-\STATE{$U_M^*:=U_{m-1}^*$}
+\STATE{$\Lambda_M=\Lambda_{m-1}$}
+\STATE{$U_M=U_{m-1}$}
+\STATE{$U_M^*=U_{m-1}^*$}
 \end{algorithmic}
 \end{algorithm}
 
@@ -1117,38 +1119,38 @@ Similarly we define the adaptive method based on the Newton's method.
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Newton's method with improved orthogonality} \label{alg:newton_impadapt} 
 \begin{algorithmic}
 
-\STATE{$(\Lambda_M,U_M,U_M^*):=\mathrm{NewtonImpAdapt}
+\STATE{$(\Lambda_M,U_M,U_M^*)=\mathrm{NewtonImpAdapt}
     (\mathcal{T}_0, \mathcal{T}_0^*, V_0, V_0^*, M,\mathrm{err},\mathrm{Tol},\mathrm{MaxIter}
 ,\mathrm{DTE},\mathrm{FIE},\mathrm{TE},\mathrm{ThO})$}
 
 \STATE{Construct $\mathbf{A}_0$, $\mathbf{A}_0^*$ and $\mathbf{B}_0$}
 
-\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,\mathbf{B}_0^*,
+\STATE{$\{(\lambda_{j,0},u_{j,0},u_{j,0}^*)\}_{j=1}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{Eigensolver}(\mathbf{A}_0,\mathbf{A}_0^*,\mathbf{B}_0,\mathbf{B}_0^*,
 \mathrm{DTE}+\mathrm{FIE},$}
 \STATE{$\quad\quad\quad\mathrm{Tol},\mathrm{MaxIter})$}
-\STATE{$(\Lambda_0,U_0,U_0^*):=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
+\STATE{$(\Lambda_0,U_0,U_0^*)=(\lambda_{\mathrm{TE},0},u_{\mathrm{TE},0},u_{\mathrm{TE},0}^*)$}
 %\STATE{Compute the residual $\eta$ for the couple $(\Lambda_0,U_0)$}
-\STATE{$m:=1$}
+\STATE{$m=1$}
 \REPEAT
 \STATE{Construct the mesh $\mathcal{T}_m$ and the finite element space $V_m$ adapting $\mathcal{T}_{m-1}$ and $V_{m-1}$}
 \STATE{Construct the mesh $\mathcal{T}_m^*$ and the finite element space $V_m^*$ adapting $\mathcal{T}_{m-1}^*$ and $V_{m-1}^*$}
 \STATE{Construct $\mathbf{A}_m$, $\mathbf{A}_m^*$, $\mathbf{A}_m^U$, $\mathbf{B}_m$, $\mathbf{B}_m^*$, $\mathbf{B}_m^U$}
-\STATE{$\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}:=\mathrm{NewtonImpOrtho}
+\STATE{$\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}}=\mathrm{NewtonImpOrtho}
     (\mathbf{A}_m, \mathbf{A}_m^*, \mathbf{A}_m^U, \mathbf{B}_m, \mathbf{B}_m^*, \mathbf{B}_m^U,$}
     \STATE{$\quad \quad \{(\tilde\lambda_{j,n-1},\{(\lambda_{j,m-1}, u_{j,m-1}, u_{j,m-1}^*)\}_{j=\mathrm{FIE}}^{\mathrm{DTE}+\mathrm{FIE}},\mathrm{ThO})$}
     
 
-\STATE{$(\Lambda_m,U_m,U_m^*):=\mathrm{Reconstruction}
+\STATE{$(\Lambda_m,U_m,U_m^*)=\mathrm{Reconstruction}
     (\{(\lambda_{j,m},u_{j,m},u_{j,m}^*)\}_{j=\mathrm{FIE}}^{\mathrm{FIE}+\mathrm{DTE}},
 (\Lambda_{m-1},U_{m-1},U_{m-1}^*))$}
 
 \STATE{Compute the a-posteriori error estimator $e^c_{m}$ as in Algorithm~\ref{alg:hp}}
 \STATE{Compute the a-posteriori error estimator $e^{c,*}_{m}$ as in Algorithm~\ref{alg:hp}}
-\STATE{$m:=m+1$}
+\STATE{$m=m+1$}
 \UNTIL{ $m> M$ \bf{or} $\max\{e^c_{m-1},e^{c,*}_{m-1}\} \leq \mathrm{err}$}
-\STATE{$\Lambda_M:=\Lambda_{m-1}$}
-\STATE{$U_M:=U_{m-1}$}
-\STATE{$U_M^*:=U_{m-1}^*$}
+\STATE{$\Lambda_M=\Lambda_{m-1}$}
+\STATE{$U_M=U_{m-1}$}
+\STATE{$U_M^*=U_{m-1}^*$}
 
 
 \end{algorithmic}
@@ -1176,7 +1178,7 @@ eigenvalues.
 \label{def:dist_h1}
 Given a function $v\in L^2(\Omega)$ and a finite dimensional subspace $\mathcal{P}\subset L^2(\Omega)$, we define:
 $$
-\mathrm{dist}(v,\mathcal{P})_{1}\ :=\ \min_{ w\in\mathcal{P}}  \|v-w\|_{1} .
+\mathrm{dist}(v,\mathcal{P})_{1}\ =\ \min_{ w\in\mathcal{P}}  \|v-w\|_{1} .
 $$
 
 \end{definition}
@@ -1230,8 +1232,8 @@ with $1\leq \mu\leq \min\{p_n,p_n^*\}$.
 
 In this proof we use th results in \cite{babuska}, those results are stated for discrete and continuous eigenfunctions normalized in the $H^1$ norm, However in this work we normalize the eigenfunctions in a different way. It is however easy to see that the change in the normalization does not affect the final results. In fact let $\tilde u$, $\tilde u^*$ be the left and right eigenfunctions corresponding to the same eigenvalue where both functions are normalized in the $H^1$ norm and let $u_n$, $u_n^*$ be the computed approximations using one of the methods presented in this work, 
 then
- denoting by $ u := \tilde u /|b(\tilde u,\tilde u^*)|^{1/2}$ and by 
-$ u_n := \tilde u_n/|b(\tilde u_n,\tilde u_n^*)|^{1/2}$, where $\tilde u_n$, $\tilde u_n^*$ are $u_n$, $u_n^*$ normalized in $H^1$  and supposing that both $\tilde u-\tilde u_n$ and $\tilde u^*-\tilde u_n^*$ are converging, we have that
+ denoting by $ u = \tilde u /|b(\tilde u,\tilde u^*)|^{1/2}$ and by 
+$ u_n = \tilde u_n/|b(\tilde u_n,\tilde u_n^*)|^{1/2}$, where $\tilde u_n$, $\tilde u_n^*$ are $u_n$, $u_n^*$ normalized in $H^1$  and supposing that both $\tilde u-\tilde u_n$ and $\tilde u^*-\tilde u_n^*$ are converging, we have that
 $$
 u - u_n = \frac{\tilde u}{|b(\tilde u,\tilde u^*)|^{1/2}}-\frac{\tilde u_n}{|b(\tilde u_n,\tilde u_n^*)|^{1/2}} =
 |b(\tilde u,\tilde u^*)|^{-1/2}(\tilde u-\tilde u_n)+ u_n( |b(\tilde u,\tilde u^*)|^{-1/2}- |b(\tilde u_n,\tilde u_n^*)|^{-1/2})\ ,
@@ -1333,7 +1335,7 @@ From the canonical form result for compact operators, see \cite[Theorem~9.17]{Hi
 Similarly by construction also the computed eigenfunctions satisfy $a(u_{i,n},u_{j,n}^*)=b(u_{i,n},u_{j,n}^*)=0$ for any $i\neq j$.
 So from the reconstruction process we have that
 $$
-\Lambda_n:=\frac{a(U_n,U_n^*)}{b(U_n,U_n^*)}=\frac{\sum_{i=1}^{R} c_ic_i^*a(u_{i,n},u_{i,n}^*)}{\sum_{i=1}^{R} c_ic_i^*}
+\Lambda_n=\frac{a(U_n,U_n^*)}{b(U_n,U_n^*)}=\frac{\sum_{i=1}^{R} c_ic_i^*a(u_{i,n},u_{i,n}^*)}{\sum_{i=1}^{R} c_ic_i^*}
 =\frac{\sum_{i=1}^{R} c_ic_i^*\lambda_{i,n}}{\sum_{i=1}^{R} c_ic_i^*}\ .
 $$
 In a similar way we have from the definition of the continuous problems:
@@ -1350,7 +1352,7 @@ Then the result comes from Lemma~\ref{lm:adj}(i).
 
 \end{proof}
 
-The bilinear form $a(\cdot,\cdot)$ is not necessary coercive, but from the G\r{a}rding's inequality, see \cite[Theorem~(5.6.8)]{Brenner}, we have that either $a(\cdot,\cdot)$ or $a(\cdot,\cdot)$ with a shift is coercive, i.e. $a(\cdot,\cdot)+K b(\cdot,\cdot)$, with $K>0$. In the latter case, we can define a new bilinear form $\tilde a(\cdot,\cdot):=a(\cdot,\cdot)+K b(\cdot,\cdot)$ and all the results in this section still hold. Moreover it is easy to see that $\lambda$ is an eigenvalue for $a(\cdot,\cdot)$ if and only if $\sigma:=\lambda+K$ is an eigenvalue of $\tilde  a(\cdot,\cdot)$. Also $(\lambda,u)$ and $(\lambda,u^*)$ are left and right eigenpairs of $a(\cdot,\cdot)$ if and only if $(\sigma,u)$ and $(\sigma,u^*)$ are left and right eigenpairs of $\tilde  a(\cdot,\cdot)$. This is also true for the discrete spectra, so the action of the shift $K b(\cdot,\cdot)$ shifts the spectrum by $K$, but keeps the eigenfunctions. In particular it is not necessary to use the shifted form $\tilde a(\cdot,\cdot)$ in practice, because all methods presented in this paper work also if $a(\cdot,\cdot)$ is not coercive and the equivalence of the discrete spectra does the rest. Now we recast the previous two results for a not coercive  $a(\cdot,\cdot)$. The proofs are straightforward because the results in \cite{babuska} hold also for $\tilde a(\cdot,\cdot)$.
+The bilinear form $a(\cdot,\cdot)$ is not necessary coercive, but from the G\r{a}rding's inequality, see \cite[Theorem~(5.6.8)]{Brenner}, we have that either $a(\cdot,\cdot)$ or $a(\cdot,\cdot)$ with a shift is coercive, i.e. $a(\cdot,\cdot)+K b(\cdot,\cdot)$, with $K>0$. In the latter case, we can define a new bilinear form $\tilde a(\cdot,\cdot)=a(\cdot,\cdot)+K b(\cdot,\cdot)$ and all the results in this section still hold. Moreover it is easy to see that $\lambda$ is an eigenvalue for $a(\cdot,\cdot)$ if and only if $\sigma=\lambda+K$ is an eigenvalue of $\tilde  a(\cdot,\cdot)$. Also $(\lambda,u)$ and $(\lambda,u^*)$ are left and right eigenpairs of $a(\cdot,\cdot)$ if and only if $(\sigma,u)$ and $(\sigma,u^*)$ are left and right eigenpairs of $\tilde  a(\cdot,\cdot)$. This is also true for the discrete spectra, so the action of the shift $K b(\cdot,\cdot)$ shifts the spectrum by $K$, but keeps the eigenfunctions. In particular it is not necessary to use the shifted form $\tilde a(\cdot,\cdot)$ in practice, because all methods presented in this paper work also if $a(\cdot,\cdot)$ is not coercive and the equivalence of the discrete spectra does the rest. Now we recast the previous two results for a not coercive  $a(\cdot,\cdot)$. The proofs are straightforward because the results in \cite{babuska} hold also for $\tilde a(\cdot,\cdot)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lemma}
@@ -1476,7 +1478,7 @@ For the second eigenfunction we have an adapted mesh mostly characterized by $p$
 Moreover the fact that the operator in non-symmetric affects in different ways the left and right eigenfunctions. 
 In fact as can be seen the strength of the singularity at the re-entrant corner is different in the left and right eigenfunctions for the first eigenvalue and this is reflected in differences in the corresponding adapted meshes.
 Similarly also the left and right eigenfunctions of the second eigenvalue are not the same, even if both are smooth in this case, and this is again reflected in differences in the corresponding adapted meshes.
-These results are shown in Figures~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \ref{fig:l_sh_eig3} and \ref{fig:l_sh_eig4}.
+These results are shown in Figs.~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \ref{fig:l_sh_eig3} and \ref{fig:l_sh_eig4}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -1494,7 +1496,7 @@ These results are shown in Figures~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \re
 \includegraphics[width=0.42\textwidth]{lshape4.eps}
 \end{center}
 %\vspace{-5mm}
-\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Figure~\ref{fig:l_sh_eig1}.}
+\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Fig.~\ref{fig:l_sh_eig1}.}
 \label{fig:l_sh_eig2}
 \end{figure}
 
@@ -1514,18 +1516,18 @@ These results are shown in Figures~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \re
 \includegraphics[width=0.42\textwidth]{lshape8.eps}
 \end{center}
 %\vspace{-5mm}
-\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Figure~\ref{fig:l_sh_eig3}.}
+\caption{Adapted meshes after 8 adaptive steps for the eigenfunctions in Fig.~\ref{fig:l_sh_eig3}.}
 \label{fig:l_sh_eig4}
 \end{figure}
 
 \subsection{Domains with few reentering corners}\label{ssec:reent}
 
-We conclude the numerics section considering the model problem \eqref{one} on the square domain $\Omega$ with a square hole and with $b=(1,0)$ and $c=0$. Assuming that we are interested in the eigenfunctions corresponding to the first eigenvalue, see Figure~\ref{fig:holef} and that we use the initial mesh in Figure~\ref{fig:hole_mesh}, we want to study the convergence of our $hp$-adapted method on independent meshes based on Picard's method, i.e. Algorithm~\ref{alg:picard_impadapt}.
+We conclude the numerics section considering the model problem \eqref{one} on the square domain $\Omega$ with a square hole and with $b=(1,0)$ and $c=0$. Assuming that we are interested in the eigenfunctions corresponding to the first eigenvalue, see Fig.~\ref{fig:holef} and that we use the initial mesh in Fig.~\ref{fig:hole_mesh}, we want to study the convergence of our $hp$-adapted method on independent meshes based on Picard's method, i.e. Algorithm~\ref{alg:picard_impadapt}.
 
-In Figure~\ref{fig:hole_mesh_12} we present the adapted meshes for the left and right eigenfunctions after 12 applications of the adaptive procedure. As can be seen the two meshes are different in order to fit with the different characteristics of each eigenfunction.
+In Fig.~\ref{fig:hole_mesh_12} we present the adapted meshes for the left and right eigenfunctions after 12 applications of the adaptive procedure. As can be seen the two meshes are different in order to fit with the different characteristics of each eigenfunction.
 
-In Figure~\ref{fig:conv1} the number of degrees of freedoms are plotted against the errors from both the left and right eigenfunctions. As can be seen, even if the eigenfunctions are different, both meshes are adapted in such a way that the convergence rate is very similar. Moreover the fact that the curves in Figure~\ref{fig:conv1} seem to approximate straight lines, which suggests exponential convergence rate. In Figure~\ref{fig:conv2} the errors are plotted against the number of adapted steps. Also in this case the convergence look exponential for both eigenfunctions.
-Finally in Figure~\ref{fig:its} we report the number of iterations at each adaptive step necessary to the Picard's method in Algorithm~\ref{alg:picard_impadapt} to converge with relative error $1e-3$ and absolute error $1e-9$.
+In Fig.~\ref{fig:conv1} the number of degrees of freedoms are plotted against the errors from both the left and right eigenfunctions. As can be seen, even if the eigenfunctions are different, both meshes are adapted in such a way that the convergence rate is very similar. Moreover the fact that the curves in Fig.~\ref{fig:conv1} seem to approximate straight lines, which suggests exponential convergence rate. In Fig.~\ref{fig:conv2} the errors are plotted against the number of adapted steps. Also in this case the convergence look exponential for both eigenfunctions.
+Finally in Fig.~\ref{fig:its} we report the number of iterations at each adaptive step necessary to the Picard's method in Algorithm~\ref{alg:picard_impadapt} to converge with relative error $1e-3$ and absolute error $1e-9$.
 On average the number of iterations seems to reduce after each adaptation of the meshes and after the 14th adaptation the number of iterations settle to 2. This is particularly interesting from a numerical point of view because the number of iterations are minimum where the linear system is bigger making the method quite cheap to use.
 
 \begin{figure}[!ht]
