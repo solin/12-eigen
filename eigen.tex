@@ -66,7 +66,7 @@
 
 \begin{document}
 
-\title{An Iterative Adaptive Finite Element Method\\ for Non-Symmetric Elliptic Eigenvalue Problem}
+\title{An Iterative Adaptive $hp$-FEM Method\\ for Non-Symmetric Elliptic Eigenvalue Problems}
 
 \subtitle{}
 
@@ -79,9 +79,10 @@
 
 \author{Pavel~Solin \and Stefano Giani}
 
-\institute{P. Solin \at Department of Mathematics and Statistics, University of Nevada, Reno, USA, and Institute of Thermo-mechanics,
+\institute{P. Solin \at Department of Mathematics and Statistics, 
+University of Nevada, Reno, USA, and Institute of Thermomechanics,
 Prague, Czech Republic
-              \email{solin@unr.edu}\and
+              \email{solin.pavel@gmail.com}\and
               S. Giani \at
               School of Mathematical Sciences, University of Nottingham,
 University Park,
@@ -102,10 +103,21 @@ NG7 2RD, UK.
 
 
 \begin{abstract}
+We present a novel adaptive higher-order finite element ($hp$-FEM) algorithm 
+to solve non-symmetric elliptic eigenvalue problems. This is an extension of 
+our prior work on symmetric elliptic eigenvalue problems. The method 
+only needs to make one call to a generalized eigensolver on the coarse mesh, and 
+then it employs the Newton's or Picard's methods to resolve adaptively 
+a selected eigenvalue-eigenvector pair. The fact that the method does not need to make 
+repeated calls to a generalized eigensolver not only makes it very 
+efficient, but it also eliminates problems that 
+pose great complications to adaptive algorithms, such as eigenvalue reordering 
+or returning arbitrary linear combinations of eigenvectors associated with the same 
+eigenvalue. New theoretical and numerical results for the non-symmetric case 
+are presented.
 
-\keywords{partial differential equation \and eigenvalue problem \and iterative method \and
-adaptive higher-order finite element
-method \and $hp$-FEM}
+\keywords{Partial differential equation \and non-symmetric eigenvalue problem \and iterative method \and
+adaptive higher-order finite element method \and $hp$-FEM}
  \subclass{65N25 \and 65N30 \and 65N50}
 
 \end{abstract}
@@ -113,21 +125,65 @@ method \and $hp$-FEM}
 
 
 
+
 \section{Introduction}\label{sec:intro}
 \setcounter{equation}{0}
 
-We have to assume that the model problem is a diagonalizable non-symmetric differential operator.
-Pavel, this is important otherwise when could not have eigenvalues. 
+This study presents a novel adaptive higher-order finite element ($hp$-FEM) 
+algorithm for eigenvalue problems for (generally) non-symmetric elliptic 
+partial differential equations (PDE). Eigenproblems are of considerable 
+theoretical and practical interest in various areas of engineering and 
+sciences. Classical applications include modal analysis in linear and nonlinear
+elasticity and the Schroedinger equation of quantum chemistry. But there
+are many other applications including, for example, automated multilevel substructuring 
+methods for noise prediction in acoustics \cite{lalor_prediction_2007},
+analysis of photonic crystals \cite{pcf_apost,JoMeWi:95} and 
+plasmonic guides \cite{berini_plasmon-polariton_2000},
+stability analysis of fluid systems \cite{cliffe_adaptive_2010}, and others.
 
-Model problem:
+The most common approach to solving eigenproblems is using eigensolvers. For larger problems it is 
+practical to employ iterative eigensolvers such as ARPACK \cite{arpack}. A characteristic common to 
+all eigensolvers is that even if the user is interested in one particular eigenpair only, several 
+additional eigenvalues and possibly eigenvectors need to be computed. These auxiliary eigenpairs are 
+the byproduct of techniques such as deflation or orthogonalization that are used to filter out 
+unwanted solutions.
+
+Most eigensolvers are not designed to work with adaptive finite element methods (FEM), and 
+their application on sequences of locally refined meshes can lead to substantial problems. 
+In \cite{solin-giani} we illustrated some of these problems and proposed a novel iterative 
+method that alleviates them. The main idea was to adapt the Picard's and Newton's methods 
+to solve eigenvalue problems in order to minimize the number of unwanted eigenpair exploiting 
+the orthogonality between eigenvectors. In contrast to conventional adaptive methods that 
+call an eigensolver after each mesh refinement, the iterative method is capable of following 
+reliably a selected eigenpair on a sequence of adapted meshes. This is particularly useful 
+with multiple eigenvalues when only a particular eigenfunction in the eigenspace is wanted. 
+
+In this paper we are going to extend the results from \cite{solin-giani} to non-symmetric problems.
+The lack of symmetry brings substantial new complications that we need to overcome. For 
+technical reasons, we have to assume that the model problem is a diagonalizable non-symmetric 
+differential operator:
+
+\subsection{Model problem}
+
+We consider the eigenproblem
 \begin{equation} \label{one}
 -\Delta u + b\cdot\nabla u + cu = \lambda u, \ \ \ u = 0 \ \mbox{on} \ \partial \Omega
 \end{equation}
-where 
+where $\Omega$ is a bounded 2D domain with a Lipschitz-continuous boundary,
 $b \in \big[L^\infty(\Omega)\big]^2$ and $c\in L^\infty(\Omega)$ is non-negative.
 
 
-\subsection{Outline of the Paper}
+\subsection{Outline}
+
+The outline of the paper is as follows: In Section 2 we present motivation 
+for the present study. In Section 3 we introduce notations and preliminaries. 
+In Section 4 we present an algorithm based on the Picard's method and demonstrate 
+a need for orthogonalization. Sections 5 and 6 present the Picard's and Newton's
+method with orthogonalization, respectively. Automatic $hp$-adaptivity is discussed in 
+Section 7. Sections 8 and 9 present a reconstruction technology and employ it to 
+calculate reference solutions efficiently. Section 10 presents iterative methods 
+with improved orthogonalization. Section 11 intriduces a-priori convergence results. 
+Numerical results are rpesented in Section 12.
 
 
 
@@ -1539,7 +1595,7 @@ On average the number of iterations seems to reduce after each adaptation of the
 \section*{Acknowledgments}
 The first author was supported by the Subcontract No. 00089911 of Battelle Energy
 Alliance (U.S. Department of Energy intermediary) as well as by the Grant No. 
-IAA100760702 of the Grant Agency of the Academy of Sciences of the Czech Republic.
+P105/10/1682 of the Grant Agency of the Czech Republic.
 
  
  
@@ -1638,10 +1694,10 @@ implicitly restarted arnoldi methods},  {SIAM, 1998}.
 { Finfding an eigenvector and eigenvalue, with Newtons method for solving systems of nonlinear equations},
 {Report CMDIE WS2002/03}
 
-\bibitem{schwab}
-{\sc C. Schwab,}
- { $p$- and $hp$- finite element methods},
-{ Oxford University Press}, Oxford, 1998.
+%\bibitem{schwab}
+%{\sc C. Schwab,}
+% { $p$- and $hp$- finite element methods},
+%{ Oxford University Press}, Oxford, 1998.
 
 \bibitem{solin1} 
 {\sc P. Solin, D. Andrs, J. Cerveny, M. Simko,}
@@ -1654,6 +1710,11 @@ implicitly restarted arnoldi methods},  {SIAM, 1998}.
 thermoelasticity problems via adaptive multimesh $hp$-FEM}, 
 {J. Comput. Appl. Math},
 234 (2010)  2350--2357.
+
+\bibitem{solin-giani}
+{\sc P. Solin, S. Giani,} 
+{An iterative finite element method for elliptic eigenvalue problems}, 
+Journal of Computational and Applied Mathematics, Vol. 236, No. 18., pp. 4582-4599.
 
 \bibitem{solin3}
 {\sc P. Solin, K. Segeth, I. Dolezel,}
