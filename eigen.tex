@@ -130,7 +130,7 @@ adaptive higher-order finite element method \and $hp$-FEM}
 \setcounter{equation}{0}
 
 This study presents a novel adaptive higher-order finite element ($hp$-FEM) 
-algorithm for eigenvalue problems for (generally) non-symmetric elliptic 
+algorithm for eigenvalue problems for non-symmetric elliptic 
 partial differential equations (PDE). Eigenproblems are of considerable 
 theoretical and practical interest in various areas of engineering and 
 sciences. Classical applications include modal analysis in linear and nonlinear
@@ -191,12 +191,12 @@ Numerical results are rpesented in Section 12.
 
 This work is motivated by the fact that non-symmetric eigenvalue problems in general have very different left and right eigenfunctions for the same eigenvalue.
 In Fig.~\ref{fig:eigen1} we show the left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one} on the unit square with $b = (5, 5)$ and $c=0$. 
-As can be seen the two functions are different and in particular most of the energy of the modes is concentrated in different regions. It is straightforward to conclude that this two eigenfunctions can not be approximated efficiently using the same sequence of adapted meshes for both of them. For this reason we developed the methods presented in this work that use two independent sequences of refined meshes to approximate the left and right eigenfunctions.
+As can be seen the two functions are different and in particular most of the energy of the modes is concentrated in different regions. It is obvious that these two eigenfunctions can not be approximated most efficiently using the same mesh. Therefore, we use two independent sequences of refined meshes to approximate the left and right eigenfunctions.
 
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=0.45\textwidth]{eig1.eps}\ \ \ 
-\includegraphics[width=0.42\textwidth]{eig2.eps}\\
+\includegraphics[width=0.45\textwidth]{eig2.eps}\\
 \end{center}
 %\vspace{-5mm}
 \caption{Left and right eigenfunctions corresponding to the smallest eigenvalue of problem \eqref{one}. }
@@ -209,7 +209,7 @@ In Fig.~\ref{fig:mesh1} we show the $hp$-adapted meshes for the eigenfunctions f
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[width=0.45\textwidth]{mesh1.eps}\ \ \ 
-\includegraphics[width=0.43\textwidth]{mesh2.eps}\\
+\includegraphics[width=0.42\textwidth]{mesh2.eps}\\
 \end{center}
 %\vspace{-5mm}
 \caption{Different $hp$-adapted meshes for the left and right eigenfunctions from Fig.~\ref{fig:eigen1}. }
@@ -222,18 +222,21 @@ In Fig.~\ref{fig:mesh1} we show the $hp$-adapted meshes for the eigenfunctions f
 
 \section{Preliminaries}\label{sec:preli}
 
-Throughout, $L^2(\Omega)$
-denotes the usual space of square-integrable real valued functions
+Throughout the paper, $L^2(\Omega)$
+denotes the space of square-integrable real valued functions
 equipped with the standard norm
 \begin{equation}\label{eq:l2}
 \|f\|_{0}\ = \ \left(\int_\Omega  |f|^2\right)^{\frac{1}{2}} .
 \end{equation}
-The symbol $H^1(\Omega)$ denotes the usual space of functions in $L^2(\Omega)$
+The symbol $H^1(\Omega)$ denotes the space of functions in $L^2(\Omega)$
 with square-integrable weak first partial derivatives. The $H^1$-norm is 
 denoted by $\|f\|_1$.
 
-Since problem \eqref{one} is non-symmetric, we have that in general for the same eigenvalue the left and the right eigenfunctions are different. So it is reasonable to compute for each eigenvalue both corresponding eigenfunctions, i.e. $(\lambda_j,u_j,u_j^*)\in \mathbb{R}\times E(\lambda_j)\times E^*(\lambda_j)$, where $E(\lambda_j)$ and $E^*(\lambda_j)$ are respectively the left and right eigenspaces.
-The variational formulation for the left eigenfunction of problem \eqref{one} is:
+Since problem \eqref{one} is non-symmetric, we have that in general for the same eigenvalue the left and the right eigenfunctions are different. So it is reasonable to compute for each eigenvalue both corresponding eigenfunctions, i.e., $(\lambda_j,u_j,u_j^*)\in \mathbb{R}\times E(\lambda_j)\times E^*(\lambda_j)$, where $E(\lambda_j)$ and $E^*(\lambda_j)$ are the left and right eigenspaces, respectively.
+
+\subsection{Weak formulation}
+
+The variational formulation for the left eigenfunction of problem \eqref{one} reads:
 \emph{Find the eigenvalue $\lambda_j\in \mathbb{R}$ and the eigenfunctions $u_j,u_j^*\in H^1_0(\Omega)$
 such that}
 \begin{equation}
@@ -256,10 +259,7 @@ and
 \begin{equation}\label{eq:b}
 b(u,v)=\int_\Omega u(x) v(x).
 \end{equation}
-
-
-
-Because the left and the right eigenfunctions can be very different, we use two sequences of meshes, one for each eigenfunction, and we apply adaptivity to each eigenfunction independently. 
+Since the left and the right eigenfunctions can be very different, we use two sequences of meshes, one for each eigenfunction, and we apply adaptivity to each eigenfunction independently. 
 To discretize (\ref{eq:var_prob}), let $\cT_n, n =
 1,2,\ldots $ denotes a family of meshes on $\Omega$.
 The meshes can be irregular with multiple levels of hanging nodes, 
@@ -268,18 +268,17 @@ elements. These meshes may be obtained using automatic adaptivity.
 Similarly for the right eigenfunctions we use irregular mesh of the same kind,  $\cT_n^*, n =
 1,2,\ldots $ denote a family of meshes on $\Omega$.
 
-In the rest of the paper we are going to denote with a star all quantities related to the right eigenfunction.
-
-By $h_{n,\tau}$ we denote the diameter of element $\tau$,  
+In the rest of the paper we are going to denote with an asterisk '{\tt *}'  all quantities related 
+to the right eigenfunction. By $h_{n,\tau}$ we denote the diameter of element $\tau$ and
 we define
-$
+$$
 h_n=\max_{\tau\in \mathcal{T}_n}\{h_{n,\tau}\}.
-$
+$$
 Similarly with  $p_{n,\tau}$ we denote  the order of polynomials of element $\tau$,  
 we define
-$
+$$
 p_n=\min_{\tau\in \mathcal{T}_n}\{p_{n,\tau}\}.
-$
+$$
 On any mesh $\mathcal{T}_n$ we denote by $V_n \subset H^1_0(\Omega)$ the finite
 dimensional space of continuous functions $v$ such that on any element $\tau$ we 
 have that $v|_\tau\in \mathcal{P}_{p_{n,\tau}}(K)$. Here either $\mathcal{P}_{p_{n,\tau}}(K)$ 
@@ -287,7 +286,7 @@ is the space of polynomials of total degree at most $p_{n,\tau}$ if $\tau$ is a 
 element, or $\mathcal{P}_{p_{n,\tau}}(K)$ is the space of polynomials of degree at most 
 $p_{n,\tau}$ in each variable if $\tau$ is a quadrilateral element.
 
-
+\subsection{Discrete problem}
 
 The discrete version of \eqref{eq:var_prob} reads:
 \emph{Find the eigenvalue $\lambda_{j,n}\in \mathbb{R}$ and the eigenfunctions $u_{j,n}\in V_n$ and $u_{j,n}^*\in V_n^*$
@@ -305,9 +304,20 @@ a(v_{n},u_{j,n}^*)&=& \lambda_{j,n}\ b(v_{n},u_{j,n}^*),
 \right\}
 \end{equation}
 
-The methods presented in this work make use of a third sequence of meshes $\mathcal{T}_n^U$ which, for each $n$, $\mathcal{T}_n^U$ is the union of the two meshes  $\mathcal{T}_n$ and $\mathcal{T}_n^*$. Similarly we define the spaces $V_n^U$ constructed on the meshes $\mathcal{T}_n^U$ which contain the spaces $V_n$ and $V_n^*$ for each $n$. 
+\subsection{Union mesh}
 
-{Pavel, can you explain better how this thing about the union of the meshes and the common FE space works?}
+The methods presented in this work make use of a third sequence of meshes $\mathcal{T}_n^U$ which, for each $n$, $\mathcal{T}_n^U$ is the union of the two meshes  $\mathcal{T}_n$ and $\mathcal{T}_n^*$. Similarly we define the spaces $V_n^U$ constructed on the meshes $\mathcal{T}_n^U$ which contain the spaces $V_n$ and $V_n^*$ for each $n$. The definition of the union mesh can be found, e.g., 
+in \cite{solin2}. In short, this is the smallest common mesh that is obtained by applying a sequence of standard 
+refinement operations to the mesh $\mathcal{T}_n$ and that at the same time is obtained by another sequence of 
+refinements applied to $\mathcal{T}_n^*$. The union mesh $\mathcal{T}_n^U$ is usually finer than both 
+$\mathcal{T}_n$ and $\mathcal{T}_n^*$.
+If $\mathcal{T}_n$ and $\mathcal{T}_n^*$ are the same, then $\mathcal{T}_n^U = \mathcal{T}_n$. If 
+$\mathcal{T}_n$ can be obtained from $\mathcal{T}_n^*$ via a sequence of refinements, then 
+$\mathcal{T}_n^U = \mathcal{T}_n$ and vice versa. For each element $K^U$ of the union mesh, there exists
+a unique element $K \in \mathcal{T}_n$ such that $K^U \subset K$, and a unique element 
+$K^* \in \mathcal{T}^*_n$ such that $K^U \subset K^*$. The polynomial degree of $K^U$ is the maximum 
+of the polynomial degrees of $K$ and $K^*$.
+
 
 Then for any function $v\in V_n$ we can defined a trivial prolongation operator $P$ such that $Pv\in V_n^U$ is the prolongation of $v$ in $V_n^U$ and similarly we can define the trivial prolongation operator $P^*$ from $V_n^*$ into $V_n^U$. %Let also denote the restriction operators $R:V_n^U\rightarrow V_n$ and $R^*:V_n^U\rightarrow V_n^*$ satisfying for $v\in V_n$ $v\equiv RPv$ and for $v\in V_n^*$ $v\equiv R^*P^*v$.
 
