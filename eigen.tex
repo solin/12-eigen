@@ -68,8 +68,8 @@
 
 \title{An Iterative Adaptive $hp$-FEM Method\\ for Non-Symmetric Elliptic Eigenvalue Problems}
 
-\subtitle{}
-
+%\subtitle{Iterative $hp$-FEM for Non-Symmetric Eigenvalue Problems}
+\titlerunning{Iterative $hp$-FEM for Non-Symmetric Eigenvalue Problems} 
 %\author{Pavel~Solin}
 %
 %\institute{P. Solin \atDepartment of Mathematics and Statistics, University of Nevada, Reno, USA, and Institute of Thermo-mechanics,
@@ -232,7 +232,10 @@ The symbol $H^1(\Omega)$ denotes the space of functions in $L^2(\Omega)$
 with square-integrable weak first partial derivatives. The $H^1$-norm is 
 denoted by $\|f\|_1$.
 
-Since problem \eqref{one} is non-symmetric, we have that in general for the same eigenvalue the left and the right eigenfunctions are different. So it is reasonable to compute for each eigenvalue both corresponding eigenfunctions, i.e., $(\lambda_j,u_j,u_j^*)\in \mathbb{R}\times E(\lambda_j)\times E^*(\lambda_j)$, where $E(\lambda_j)$ and $E^*(\lambda_j)$ are the left and right eigenspaces, respectively.
+Since problem \eqref{one} is non-symmetric, in general for the same eigenvalue the left and the right eigenfunctions are different. 
+Therefore it is reasonable to compute for each eigenvalue both corresponding eigenfunctions, i.e., 
+$(\lambda_j,u_j,u_j^*)\in \mathbb{R}\times E(\lambda_j)\times E^*(\lambda_j)$, where $E(\lambda_j)$ 
+and $E^*(\lambda_j)$ are the left and right eigenspaces, respectively.
 
 \subsection{Weak formulation}
 
@@ -259,14 +262,18 @@ and
 \begin{equation}\label{eq:b}
 b(u,v)=\int_\Omega u(x) v(x).
 \end{equation}
-Since the left and the right eigenfunctions can be very different, we use two sequences of meshes, one for each eigenfunction, and we apply adaptivity to each eigenfunction independently. 
+
+\subsection{Finite element meshes}
+Since the left and the right eigenfunctions can be 
+different, we use two sequences of meshes, one for each eigenfunction, 
+and we apply adaptivity to each eigenfunction independently. 
 To discretize (\ref{eq:var_prob}), let $\cT_n, n =
-1,2,\ldots $ denotes a family of meshes on $\Omega$.
-The meshes can be irregular with multiple levels of hanging nodes, 
-and they can combine possibly curvilinear triangular and quadrilateral 
-elements. These meshes may be obtained using automatic adaptivity. 
-Similarly for the right eigenfunctions we use irregular mesh of the same kind,  $\cT_n^*, n =
 1,2,\ldots $ denote a family of meshes on $\Omega$.
+The meshes can be irregular with multiple levels of hanging nodes 
+and they can combine possibly curvilinear triangular and quadrilateral 
+elements \cite{solin3}. These meshes may be obtained using automatic adaptivity. 
+Similarly for the right eigenfunctions we use irregular mesh of the same kind.
+By $\cT_n^*, n = 1,2,\ldots $ we denote a family of meshes on $\Omega$.
 
 In the rest of the paper we are going to denote with an asterisk '{\tt *}'  all quantities related 
 to the right eigenfunction. By $h_{n,\tau}$ we denote the diameter of element $\tau$ and
@@ -281,9 +288,9 @@ p_n=\min_{\tau\in \mathcal{T}_n}\{p_{n,\tau}\}.
 $$
 On any mesh $\mathcal{T}_n$ we denote by $V_n \subset H^1_0(\Omega)$ the finite
 dimensional space of continuous functions $v$ such that on any element $\tau$ we 
-have that $v|_\tau\in \mathcal{P}_{p_{n,\tau}}(K)$. Here either $\mathcal{P}_{p_{n,\tau}}(K)$ 
+have that $v|_\tau\in \mathcal{P}_{p_{n,\tau}}(\tau)$. Here either $\mathcal{P}_{p_{n,\tau}}(\tau)$ 
 is the space of polynomials of total degree at most $p_{n,\tau}$ if $\tau$ is a triangular 
-element, or $\mathcal{P}_{p_{n,\tau}}(K)$ is the space of polynomials of degree at most 
+element, or $\mathcal{P}_{p_{n,\tau}}(\tau)$ is the space of polynomials of degree at most 
 $p_{n,\tau}$ in each variable if $\tau$ is a quadrilateral element.
 
 \subsection{Discrete problem}
@@ -306,27 +313,30 @@ a(v_{n},u_{j,n}^*)&=& \lambda_{j,n}\ b(v_{n},u_{j,n}^*),
 
 \subsection{Union mesh}
 
-The methods presented in this work make use of a third sequence of meshes $\mathcal{T}_n^U$ which, for each $n$, $\mathcal{T}_n^U$ is the union of the two meshes  $\mathcal{T}_n$ and $\mathcal{T}_n^*$. Similarly we define the spaces $V_n^U$ constructed on the meshes $\mathcal{T}_n^U$ which contain the spaces $V_n$ and $V_n^*$ for each $n$. The definition of the union mesh can be found, e.g., 
+We also make use of a third sequence of meshes $\mathcal{T}_n^U$ where for each $n$, $\mathcal{T}_n^U$ is the 
+union of the meshes  $\mathcal{T}_n$ and $\mathcal{T}_n^*$. Similarly we define the spaces $V_n^U$ constructed 
+on the meshes $\mathcal{T}_n^U$ which contain the spaces $V_n$ and $V_n^*$ for each $n$. 
+The definition of the union mesh can be found, e.g., 
 in \cite{solin2}. In short, this is the smallest common mesh that is obtained by applying a sequence of standard 
 refinement operations to the mesh $\mathcal{T}_n$ and that at the same time is obtained by another sequence of 
 refinements applied to $\mathcal{T}_n^*$. The union mesh $\mathcal{T}_n^U$ is usually finer than both 
 $\mathcal{T}_n$ and $\mathcal{T}_n^*$.
 If $\mathcal{T}_n$ and $\mathcal{T}_n^*$ are the same, then $\mathcal{T}_n^U = \mathcal{T}_n$. If 
 $\mathcal{T}_n$ can be obtained from $\mathcal{T}_n^*$ via a sequence of refinements, then 
-$\mathcal{T}_n^U = \mathcal{T}_n$ and vice versa. For each element $K^U$ of the union mesh, there exists
-a unique element $K \in \mathcal{T}_n$ such that $K^U \subset K$, and a unique element 
-$K^* \in \mathcal{T}^*_n$ such that $K^U \subset K^*$. The polynomial degree of $K^U$ is the maximum 
-of the polynomial degrees of $K$ and $K^*$.
+$\mathcal{T}_n^U = \mathcal{T}_n$ and vice versa. For each element $\tau^U$ of the union mesh, there exists
+a unique element $\tau \in \mathcal{T}_n$ such that $\tau^U \subset \tau$, and a unique element 
+$\tau^* \in \mathcal{T}^*_n$ such that $\tau^U \subset \tau^*$. The polynomial degree of $\tau^U$ is the maximum 
+of the polynomial degrees of $\tau$ and $\tau^*$.
 
-
-Then for any function $v\in V_n$ we can defined a trivial prolongation operator $P$ such that $Pv\in V_n^U$ is the prolongation of $v$ in $V_n^U$ and similarly we can define the trivial prolongation operator $P^*$ from $V_n^*$ into $V_n^U$. %Let also denote the restriction operators $R:V_n^U\rightarrow V_n$ and $R^*:V_n^U\rightarrow V_n^*$ satisfying for $v\in V_n$ $v\equiv RPv$ and for $v\in V_n^*$ $v\equiv R^*P^*v$.
+For any function $v\in V_n$ we can define a trivial prolongation operator $P$ such that $Pv\in V_n^U$ is the prolongation of $v$ in $V_n^U$ and similarly we can define the trivial prolongation operator $P^*$ from $V_n^*$ into $V_n^U$. %Let also denote the restriction operators $R:V_n^U\rightarrow V_n$ and $R^*:V_n^U\rightarrow V_n^*$ satisfying for $v\in V_n$ $v\equiv RPv$ and for $v\in V_n^*$ $v\equiv R^*P^*v$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Picard's Method}\label{sec:picard}
 
-Problem \eqref{eq:disc_prob} can be reformulated in matrix form as:
-\emph{Find an eigenvalue $\lambda\in \mathbb{R}$ and an eigenvectors $\mathbf{u}\in \mathbb{R}^N$, where $N$ is the dimension of $V_n$ and $\mathbf{u}^*\in \mathbb{R}^{N^*}$, where $N^*$ is the dimension of $V_n^*$,
+Problem \eqref{eq:disc_prob} can be reformulated in matrix form:
+\emph{Find an eigenvalue $\lambda\in \mathbb{R}$ and an eigenvectors 
+$\mathbf{u}\in \mathbb{R}^N$, where $N$ is the dimension of $V_n$ and $\mathbf{u}^*\in \mathbb{R}^{N^*}$, where $N^*$ is the dimension of $V_n^*$,
 such that}
 \begin{equation}
 \label{eq:disc_prob_mat}
@@ -336,11 +346,11 @@ such that}
 \\
 \mathbf{A}^* \mathbf{u}^*&=& \lambda\mathbf{B}^*\mathbf{u}^*\ ,
 \\
-(P^*\mathbf{u}^*)^t\mathbf{B}^U P\mathbf{u} &=& 1
+(P^*\mathbf{u}^*)^t\mathbf{B}^U P\mathbf{u} &=& 1.
 \end{array}\quad
 \right\}
 \end{equation}
-where the entries of the matrices $\mathbf{A}$ and $\mathbf{B}$ are 
+Here the entries of the matrices $\mathbf{A}$ and $\mathbf{B}$ are 
 $$
 \mathbf{A}_{k,p}=a(\phi_p,\phi_k)\ ,\quad\mathbf{B}_{k,p}=b(\phi_p,\phi_k)\ ,
 $$
@@ -356,10 +366,10 @@ where $\phi_i^U$ are the basis functions spanning $V_n^U$, the union finite elem
 
 
 
-The Picard's method, see Algorithm~\ref{alg:picard}, takes as arguments the matrices $\mathbf{A}$, $\mathbf{A}^*$, $\mathbf{A}^U$, $\mathbf{B}$, $\mathbf{B}^*$, $\mathbf{B}^U$, initial guesses $\tilde u$ and $\tilde u^*$ for the eigenfunctions, a relative tolerance $\mathrm{Tol}$ and an absolute tolerance $\mathrm{AbsTol}$. 
-The algorithm returns an approximated eigentriplet $(\lambda_{j,n},u_{j,n},u_{j,n}^*)$.
+The Picard's method, presented in Algorithm~\ref{alg:picard}, takes as arguments the matrices $\mathbf{A}$, $\mathbf{A}^*$, $\mathbf{A}^U$, $\mathbf{B}$, $\mathbf{B}^*$, $\mathbf{B}^U$, initial guesses $\tilde u$ and $\tilde u^*$ for the eigenfunctions, a relative tolerance $\mathrm{Tol}$ and an absolute tolerance $\mathrm{AbsTol}$. 
+The algorithm returns an approximate eigentriplet $(\lambda_{j,n},u_{j,n},u_{j,n}^*)$.
 Because we use this iterative method on a sequence of adaptively refined meshes, we normally set as initial guesses
-the projections on the refined meshes of the eigenfunctions of interest $u_{j,n-1}$ and $u_{j,n-1}^*$.
+the projections of the eigenfunctions of interest $u_{j,n-1}$ and $u_{j,n-1}^*$ on the refined meshes.
 
 \begin{algorithm}[H] \caption{Picard's method} \label{alg:picard} 
 \begin{algorithmic}
@@ -384,8 +394,8 @@ $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
 \STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
-
-The next theorem shows that the Picard's method always converges to the smallest eigenvalue.\\
+\noindent
+The following theorem shows that the Picard's method always converges to the smallest eigenvalue.\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{theorem}\label{th:picard_conv}
@@ -404,7 +414,8 @@ $$
 \mathbf{u}^{m,*}=\sum_{i=1}^{N^*} c_i^{m,*} \mathbf{u}_i^*\ ,
 $$
 where $c_i^{m,*}$ are real coefficients.
-With no loss in generality we can assume that $\lambda_1$ is the eigenvalue of minimum modulus and that $c_1^1$ and $c_1^{1,*}$ are different from 0.
+Without loss in generality we can assume that $\lambda_1$ is the 
+eigenvalue of minimum modulus and that $c_1^1$ and $c_1^{1,*}$ are different from 0.
 
 In the case that $\lambda_1$ is simple we have from the definition of the problem:
 $$
@@ -415,6 +426,8 @@ $$
 $$
 \mathbf{u}^{m+1,*}=(\mathbf{A}^*)^{-1}\lambda^m\mathbf{B}\mathbf{u}^{m,*}
 =\Big(\Pi_{j=1}^m\lambda^{j}\Big)\Big((\mathbf{A}^*)^{-1}\mathbf{B}\Big)^m\mathbf{u}^{1,*}
+$$
+$$
 =\Big(\Pi_{j=1}^m\lambda^{j}\Big)\sum_{i=1}^{N^*} c_i^{1,*} (\lambda_i)^{-m}\mathbf{u}_i^*\ ,
 $$
 where $\lambda_i$ are the eigenvalues corresponding to $\mathbf{u}_i$, $\mathbf{u}_i^*$.
@@ -429,16 +442,17 @@ Then
 \end{equation}
 where it is clear that, since $\lambda_1/\lambda_i<1$, for $i\ge 2$, the directions of $\mathbf{u}^{m+1}$ and $\mathbf{u}^{m+1,*}$ tend toward the directions of $\mathbf{u}_1$, $\mathbf{u}_1^*$.
 
-Then, exploiting the linearity of the prolongation operators $P$ and $P^*$ we have from \eqref{eq:picard_proof_1} and \eqref{eq:picard_proof_2}:
+Then, exploiting the linearity of the prolongation operators 
+$P$ and $P^*$ we have from \eqref{eq:picard_proof_1} and \eqref{eq:picard_proof_2}:
 $$
 P\mathbf{u}^{m+1}=\Big(\Pi_{j=1}^m\lambda^{j}\Big)(\lambda_1)^{-m}\Big( c_1^1 P\mathbf{u}_1 +
 \sum_{i=2}^N c_i^1\frac{(\lambda_1)^m}{(\lambda_i)^{m}}P\mathbf{u}_i\Big) \ ,
 $$
 $$
 P^*\mathbf{u}^{m+1,*}=\Big(\Pi_{j=1}^m\lambda^{j}\Big)(\lambda_1)^{-m}\Big( c_1^{1,*} P^*\mathbf{u}_1^* +
-\sum_{i=2}^{N^*} c_i^{1,*}\frac{(\lambda_1)^m}{(\lambda_i)^{m}}P^*\mathbf{u}_i^*\Big) \ ,
+\sum_{i=2}^{N^*} c_i^{1,*}\frac{(\lambda_1)^m}{(\lambda_i)^{m}}P^*\mathbf{u}_i^*\Big) \ .
 $$
-Furthermore, the Rayleigh quotient is
+Furthermore, the Rayleigh quotient
 $$
 \begin{array}{ll}
 \displaystyle\lambda^{m+1}&\displaystyle=\frac{(P^*\mathbf{u}^{m+1,*})^t\mathbf{A}^U P\mathbf{u}^{m+1}}{(P^*\mathbf{u}^{m+1,*})^t\mathbf{B}^U P\mathbf{u}^{m+1}}\\
@@ -469,7 +483,7 @@ $$
 &\displaystyle=\lambda_1 \frac{\displaystyle \sum_{r=1}^R(c_r^1c_r^{1,*})(P^*\mathbf{u}^{*}_r)^t\mathbf{B}^U P\mathbf{u}_r +
 \sum_{i=R+1}^N (c_i^1c_i^{1,*})(P^*\mathbf{u}^{*}_i)^t\mathbf{B}^U P\mathbf{u}_i\Bigg(\frac{\lambda_1}{\lambda_i}\Bigg)^{2m-1}}
 {\displaystyle \sum_{r=1}^R(c_r^1c_r^{1,*})(P^*\mathbf{u}^{*}_r)^t\mathbf{B}^U P\mathbf{u}_r +
-\sum_{i=R+1}^N (c_i^1c_i^{1,*})(P^*\mathbf{u}^{*}_i)^t\mathbf{B}^U P\mathbf{u}_i\Bigg(\frac{\lambda_1}{\lambda_i}\Bigg)^{2m}}\ ,
+\sum_{i=R+1}^N (c_i^1c_i^{1,*})(P^*\mathbf{u}^{*}_i)^t\mathbf{B}^U P\mathbf{u}_i\Bigg(\frac{\lambda_1}{\lambda_i}\Bigg)^{2m}}
 \end{array}
 $$
 which converges again to $\lambda_1$.
@@ -477,7 +491,14 @@ which converges again to $\lambda_1$.
 
 \end{proof}
 
-Theorem~\ref{th:picard_conv} shows that even if the initial guesses $\mathbf{u}^1$ and $\mathbf{u}^{1,*}$ are very close to a certain discrete eigenfunctions $u_{i,n}$ and $u_{i,n}^*$, for some $i$, the method can always converge to different eigenfunctions or linear combinations of eigenfunctions with corresponding eigenvalues smaller in modulus than $\lambda_{i,n}$. In real arithmetic, even if the initial guesses $\mathbf{u}^1$ and $\mathbf{u}^{1,*}$ are orthogonal to all eigenfunctions with index less than $i$, for some $m>1$ the orthogonality could be perturbed, due to round-off errors, and the method can eventually converge anyway to different eigenfunctions or linear combinations of eigenfunctions with corresponding eigenvalues smaller in modulus than $\lambda_{i,n}$.
+\noindent
+Theorem~\ref{th:picard_conv} shows that even if the initial guesses $\mathbf{u}^1$ and $\mathbf{u}^{1,*}$ are very close to 
+certain discrete eigenfunctions $u_{i,n}$ and $u_{i,n}^*$, for some $i$, the method can always converge to different 
+eigenfunctions or linear combinations of eigenfunctions with corresponding eigenvalues smaller in modulus than 
+$\lambda_{i,n}$. In real arithmetic, even if the initial guesses $\mathbf{u}^1$ and $\mathbf{u}^{1,*}$ are 
+orthogonal to all eigenfunctions with index less than $i$, for some $m>1$ the orthogonality could be perturbed, 
+due to round-off errors, and the method can eventually converge anyway to different eigenfunctions or linear 
+combinations of eigenfunctions with corresponding eigenvalues smaller in modulus than $\lambda_{i,n}$.
 
 
 
@@ -486,7 +507,10 @@ Theorem~\ref{th:picard_conv} shows that even if the initial guesses $\mathbf{u}^
 
 \section{Picard's Method with Orthogonalization}\label{sec:picard++}
 
-In order to make the Picard's method suitable to approximate efficiently any discrete eigentriplet, and not only the first one, we derived Algorithm~\ref{alg:picard_ortho}, which has an orthogonalization procedure in it. The orthogonalization procedure is specific for non-symmetric eigenvalue problems and it comes from the canonical form result for compact operators, see \cite[Theorem~9.17]{Hislop}.
+In order to make the Picard's method suitable to approximate efficiently any discrete eigentriplet, 
+and not only the first one, we present Algorithm~\ref{alg:picard_ortho}, which has an orthogonalization 
+procedure in it. The orthogonalization procedure is specific for non-symmetric eigenvalue problems 
+and it comes from the canonical form result for compact operators \cite[Theorem~9.17]{Hislop}.
 
 The Picard's method with orthogonalization takes as arguments the matrices $\mathbf{A}$, $\mathbf{A}^*$, $\mathbf{A}^U$, $\mathbf{B}$, $\mathbf{B}^*$, $\mathbf{B}^U$,  initial guesses $\tilde u_{j,n-1}$ for $\tilde u_{j,n-1}^*$ for the eigenfunctions, which is the projection of the approximated eigenfunctions computed on the previous meshes, the tolerances  $\mathrm{AbsTol}$ and$\mathrm{Tol}$ and it also takes the $2(j-1)$ eigenfunctions $u_{1,n},\dots,u_{j-1,n}$ and  $u_{1,n}^*,\dots,u_{j-1,n}^*$.
 Then it returns the triplet $(\lambda_{j,n},u_{j,n},u_{j,n}^*)$ on the refined mesh.
@@ -534,7 +558,7 @@ $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
 \STATE{$\lambda_{j,n}=\lambda^m$}
 \end{algorithmic}
 \end{algorithm}
-
+\noindent
 As can be seen in Algorithm~\ref{alg:picard_ortho}, the orthogonalization is done in each iteration. 
 This is necessary in real arithmetic to guarantee that $\mathbf{u}^m$ and $\mathbf{u}^{m,*}$ are orthogonal to all 
 eigenfunctions $u_{1,n},\dots,u_{j-1,n}$ and $u_{1,n}^*,\dots,u_{j-1,n}^*$, for all $m$. However in exact arithmetic it would 
@@ -566,7 +590,9 @@ Then, the Rayleigh quotient converges to $\lambda_j$ by the same arguments use b
 \section{Newton's Method with Orthogonalization}\label{sec:newton}
 
 
-The second iterative method that we are going to propose is based on the Newton's method applied to eigenvalue problems. Denoting by $\tilde x=(x,\lambda)$, we have that problem \eqref{eq:var_prob} only for the left eigenfunction can be rewritten in the form
+The second iterative method that we are going to propose is based on the Newton's 
+method applied to eigenvalue problems. Denoting $\tilde x=(x,\lambda)$, we 
+have that problem \eqref{eq:var_prob} for the left eigenfunction can be rewritten in the form
 $$
 0=f(\tilde x)=
 \left(
@@ -575,9 +601,9 @@ A x&-& \lambda\ Bx
 \\
   x^T Bx&-& 1
 \end{array}\quad
-\right) ,
+\right) .
 $$
-then denoting by $\tilde h=(h, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
+Then denoting by $\tilde h=(h, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
 \begin{equation}\label{eq:newton}
 f(\tilde x + \tilde h)\approx f(\tilde x) + J_f(\tilde x)\cdot \tilde h, 
 \end{equation}
@@ -592,14 +618,14 @@ A - B\lambda & -Bx
 \end{array}\quad
 \right) .
 $$
-
-Then when $\tilde x + \tilde h$ is a solution of \eqref{eq:var_prob} for the left eigenfunction, we have from \eqref{eq:newton}
+If $\tilde x + \tilde h$ is a solution of \eqref{eq:var_prob} for the left eigenfunction, we have from \eqref{eq:newton}
 that 
 $$
 J_f(\tilde x)\cdot \tilde h = - f(\tilde x),
 $$
-which defines the linear problem of the Newton's method that we are solving.
-Similarly, denoting by $\tilde x^*=(x^*,\lambda)$, we have that problem \eqref{eq:var_prob} only for the right eigenfunction can be rewritten in the form
+which defines the linear problem of the Newton's method.
+Similarly, denoting by $\tilde x^*=(x^*,\lambda)$, we have that problem \eqref{eq:var_prob} 
+for the right eigenfunction can be rewritten in the form
 $$
 0=f^*(\tilde x^*)=
 \left(
@@ -608,9 +634,9 @@ A^* x^*&-& \lambda\ B^*x^*
 \\
   (x^*)^T B^*x^*&-& 1
 \end{array}\quad
-\right) ,
+\right) .
 $$
-then denoting by $\tilde h^*=(h^*, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
+Finally, denoting by $\tilde h^*=(h^*, \delta)^t$ the increment, we have that the truncated Taylor series of the problem is
 \begin{equation}\label{eq:newton_star}
 f^*(\tilde x^* + \tilde h^*)\approx f^*(\tilde x^*) + J_f^*(\tilde x^*)\cdot \tilde h^*, 
 \end{equation}
@@ -625,13 +651,12 @@ A^* - B^*\lambda & -B^*x^*
 \end{array}\quad
 \right) .
 $$
-
-Then when $\tilde x^* + \tilde h^*$ is a solution of \eqref{eq:var_prob} for the right eigenfunction, we have from \eqref{eq:newton_star}
+If  $\tilde x^* + \tilde h^*$ is a solution of \eqref{eq:var_prob} for the right eigenfunction, we have from \eqref{eq:newton_star}
 that 
 $$
 J_f^*(\tilde x^*)\cdot \tilde h^* = - f^*(\tilde x^*),
 $$
-which defines the linear problem of the Newton's method that we are solving.
+which defines the linear problem of the Newton's method.
 
 
 
@@ -665,7 +690,7 @@ $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
 \end{algorithmic}
 \end{algorithm}
 
-In order to make the method suitable for all eigenpairs, we are going write a version of the Newton's method that uses an orthogonalization procedure, similarly to what we have already done for the Picard's method.
+In order to make the method suitable for all eigenpairs, we are going to write a version of the Newton's method that uses an orthogonalization procedure, similarly to what we have already done for the Picard's method.
 \begin{algorithm}[!ht] \caption{Newton's method with orthogonalization} \label{alg:newton_ortho} 
 \begin{algorithmic}
 
@@ -713,7 +738,7 @@ $|\lambda^{m}-\lambda^{m-1}|<\mathrm{AbsTol}$}
 \end{algorithm}
 
 \begin{theorem}
-Algorithm~\ref{alg:newton_ortho} converges always to an eigenvalue greater or equal to $\lambda_j$.
+Algorithm~\ref{alg:newton_ortho} always converges to an eigenvalue greater or equal to $\lambda_j$.
 \end{theorem}
 
 \begin{proof}
@@ -751,11 +776,11 @@ $$
 With the Picard's and Newton's methods in hand, we can now proceed to automatic $hp$-adaptivity.
 This part of the paper is not new but we need to present it to make the paper self-contained.
 We use an algorithm from \cite{solin3} that is an analogy to embedded higher-order ODE methods: 
-In each adaptivity step it 
-constructs an approximation pair with different orders of accuracy and uses their difference 
+In each adaptivity step we 
+construct an approximation pair with different orders of accuracy and use their difference 
 as an a-posteriori error estimator. 
 
-\begin{algorithm}[!ht] \caption{Automatic $hp$-Adaptivity} \label{alg:hp} 
+\begin{algorithm}[!ht] \caption{Automatic $hp$-adaptivity} \label{alg:hp} 
 \begin{algorithmic}
 \STATE{Let $\cT^c_{0}$ and $\cT^{c,*}_{0}$ be the initial coarse meshes. We construct the initial fine meshes $\cT^f_{0}$ and $\cT^{f,*}_{0}$
 by refining all elements in space and moreover increasing their polynomial degrees by one.
@@ -812,10 +837,10 @@ $$
 The same could happen to any right eigenspace $E^*(\lambda_j)$.
 This phenomenon is already well documented in literature,  see \cite{strang,babuska,hackbusch}.
 
-Different finite element spaces can split the same multiple eigenspace in different ways, this also happens with adaptively refined meshes. It is not rare that the same multiple eigenspace is split differently on the coarse and on the refined meshes. A different split corresponds to different discrete eigenfunctions, then it is not always possible to find for the same eigenvalue on the refined mesh an eigenfunction similar to the one on the coarse mesh.
+Different finite element spaces can split the same multiple eigenspace in different ways, this also happens with adaptively refined meshes. It is not rare that the same multiple eigenspace is split differently on the coarse and on the refined mesh. Since a  different split corresponds to different discrete eigenfunctions, then it is not always possible to find for the same eigenvalue on the refined mesh an eigenfunction similar to the one on the coarse mesh. It is crucial for the adaptive algorithm to prevent this behavior.
 
 
-We propose a way to always construct on a refined mesh, an approximation of the same eigenfunctions as on the coarse mesh. The idea is based on the fact that for sufficiently rich finite element spaces, the spaces
+Therefore we propose a way to always construct on the refined mesh an approximation of the same eigenfunction as on the coarse mesh. The idea is based on the fact that for sufficiently rich finite element spaces, the spaces
 $$
 M_n(\lambda_j)=\mathrm{span}\{E(\lambda_{j,n}),E(\lambda_{j+1,n}),\dots, E(\lambda_{j+m,n})\}
 $$ 
@@ -847,8 +872,9 @@ From the definition of problem \eqref{eq:var_prob} we have that the reconstructe
 $$
 \Lambda_n=\frac{a(U_n,U_n^*)}{b(U_n,U_n^*)}.
 $$
-
-The triplet $(\Lambda_n,U_n,U_n^*)$ is not a discrete eigentriplet of problem \eqref{eq:var_prob} in general, in section~\ref{sse:pcf_priori} we prove that $(\Lambda_n,U_n,U_n^*)$ converges a priori at the same rate as any other discrete eigentriplet of \eqref{eq:var_prob} to a continuous eigentriplet.
+The triplet $(\Lambda_n,U_n,U_n^*)$ is not a discrete eigentriplet of problem \eqref{eq:var_prob} in general. 
+In Section~\ref{sse:pcf_priori} we prove that $(\Lambda_n,U_n,U_n^*)$ converges a priori at the same 
+rate as any other discrete eigentriplet of \eqref{eq:var_prob} to the continuous eigentriplet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computing Reference Solution via Reconstruction}\label{sec:recoref}
@@ -857,10 +883,10 @@ In this section we present two algorithms to compute approximations of eigenpair
 
 In all algorithms we are going to use on the initial mesh an iterative eigensolver with calling interface
 $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)_{j=1}^{i}\}=\mathrm{Eigensolver}(\mathbf{A},
-\mathbf{A}^*,\mathbf{B},\mathbf{B}^*,i,\mathrm{Tol},\mathrm{MaxIter})$, that computes the set of discrete triplets $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=1}^{i}$ and where $\mathbf{A}$ and $\mathbf{A}^*$ are the stiffness matrices of the problems, $\mathbf{B}$ and $\mathbf{B}^*$ are the mass matrices of the problems, $i$ is the number of eigenpairs to compute, $\mathrm{Tol}$ is the requested tolerance for the eigenpairs and $\mathrm{MaxIter}$ is the maximum number of iterations. 
+\mathbf{A}^*,\mathbf{B},\mathbf{B}^*$, $i,\mathrm{Tol},\mathrm{MaxIter})$, that computes the set of discrete triplets $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*)\}_{j=1}^{i}$ and where $\mathbf{A}$ and $\mathbf{A}^*$ are the stiffness matrices of the problems, $\mathbf{B}$ and $\mathbf{B}^*$ are the mass matrices of the problems, $i$ is the number of eigenpairs to compute, $\mathrm{Tol}$ is the requested tolerance for the eigenpairs and $\mathrm{MaxIter}$ is the maximum number of iterations. 
 
 
-All algorithm we describe below are based on the reconstruction technology which is guided by two parameters: $\mathrm{DTE}$ and $\mathrm{FIE}$. The parameter $\mathrm{DTE}$ should be equal to the multiplicity of the continuous eigenvalue $\lambda$ that the user want to approximate. All algorithms work also when $\mathrm{DTE}$ is an upper bound of the multiplicity of $\lambda$, so in practice the multiplicity of the target eigenvalue is not necessary to be known exactly. The parameter $\mathrm{FIE}$ should be equal to the index $i$ of the first discrete eigenvalue on the initial mesh $\lambda_{i,0}$ that approximates $\lambda$. The reconstruction technology is described in Algorithm~\eqref{alg:reconstruction}.
+All algorithm we describe below are based on the reconstruction technology which is guided by two parameters: $\mathrm{DTE}$ and $\mathrm{FIE}$. The parameter $\mathrm{DTE}$ should be equal to the multiplicity of the continuous eigenvalue $\lambda$ that the user wants to approximate. All algorithms work also when $\mathrm{DTE}$ is an upper bound of the multiplicity of $\lambda$, so in practice the multiplicity of the target eigenvalue is not necessary to be known exactly. The parameter $\mathrm{FIE}$ should be equal to the index $i$ of the first discrete eigenvalue on the initial mesh $\lambda_{i,0}$ that approximates $\lambda$. The reconstruction technology is described in Algorithm~\eqref{alg:reconstruction}.
 
 \begin{algorithm}[!ht] \caption{Reconstruction algorithm} \label{alg:reconstruction} 
 \begin{algorithmic}
@@ -998,9 +1024,17 @@ Similarly we define the adaptive method based on the Newton's method.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Iterative methods with improved orthogonalization}\label{sec:imp_ortho}
 
-The main disadvantage of the algorithms presented in Sections~\ref{sec:picard++} and \ref{sec:newton} is the cost of the method. Those methods ensure that the eigenpair with the correct index $\mathrm{TE}$ is computed, but, in order to ensure that, all eigenpairs of indexes from 1 to $\mathrm{DTE}+\mathrm{FIE}$ are also computed. What we present now is a more cheaper way to ensure the computation of the target eigenpair. The key idea is a smarter way to use the orthogonalization only when it is really necessary and this is possible mainly because we can use information from the previous mesh to identify unwanted eigenpairs.
+The algorithms presented in Sections~\ref{sec:picard++} and \ref{sec:newton} are quite costly. 
+They ensure that the eigenpair with the correct index $\mathrm{TE}$ is computed, but all eigenpairs 
+of indices from 1 to $\mathrm{DTE}+\mathrm{FIE}$ need to be computed. Therefore, in this Section we 
+present a less computationally expensive method. The key idea is to employ the orthogonalization only 
+when it is really necessary. This is possible because we can use information from the previous 
+mesh to identify unwanted eigenpairs.
 
-The reason why we introduced the algorithms in Sections~\ref{sec:picard++} and \ref{sec:newton} was to cure the downside of the iterative methods to possibly converge to an eigenpair different from the target one. The answer to this problem presented in Sections~\ref{sec:picard++} and \ref{sec:newton} was to compute all possible eigenpairs to which the method could erroneously converge to, and then use all of them to force the method, by orthogonalization, to produce an approximation of the wanted eigenpair. There is a better way which consists in starting with no-orthogonalization and then every time that the iterative method produces an unwanted eigenpair, save it to be used next time in the orthogonalization process to prevent the method to converge again to the same unwanted solution. This is possible only if a way to distinguish between wanted and unwanted solution is available. In the adaptive setting this is always possible because  the orthogonality of any newly computed eigenpair against the results on the previous mesh can be computed.
+The reason why we introduced the algorithms in Sections~\ref{sec:picard++} and \ref{sec:newton} was to cure the downside of the iterative methods to possibly converge to an eigenpair different from the target one. The answer to this problem presented in Sections~\ref{sec:picard++} and \ref{sec:newton} was to compute all possible eigenpairs to which the method could erroneously converge to, and then use all of them to force the method, by orthogonalization, to produce an approximation of the wanted eigenpair. 
+
+There is a better way which consists in starting without 
+orthogonalization and then every time that the iterative method produces an unwanted eigenpair, save it to be used next time in the orthogonalization process to prevent the method to converge again to the same unwanted solution. This is possible only if a way to distinguish between wanted and unwanted solution is available. In the adaptive setting this is always possible because  the orthogonality of any newly computed eigenpair against the results on the previous mesh can be computed.
 
 The Algorithms~\ref{alg:picard_importho} and \ref{alg:newton_importho} are the incarnations of the improved orthogonality technology applied to the either the Picard's or the Newton's method respectively. Since these two algorithms are identical except for the call to either $\mathrm{PicardOrtho}$ or to $\mathrm{NewtonOrtho}$, in the rest we are gong to describe only Algorithm~\ref{alg:picard_importho}.
 
@@ -1081,11 +1115,10 @@ The algorithm ends when all eigentriplets in $\{(\lambda_{j,n},u_{j,n},u_{j,n}^*
 
 \end{algorithmic}
 \end{algorithm}
-
-So the number of computed eigenfunction may vary: in the best case scenario when the method is used to approximate an eigenspace of dimension $\mathrm{DTE}$, only $\mathrm{DTE}$ eigenfunctions are computed. In the worst case scenario, $\mathrm{DTE}+\mathrm{FIE}$ eigenfunctions are computed, which is the number of computed eigenfunctions by Algorithms~\ref{alg:picard_ortho},~\ref{alg:newton_ortho} on the same space. Because almost never the worst case scenario is achieved, Algorithms~\ref{alg:picard_importho} and \ref{alg:newton_importho} are more efficient than Algorithms~\ref{alg:picard_ortho},~\ref{alg:newton_ortho}.
-
+\noindent
+The number of computed eigenfunction may vary: In the best case scenario when the method is used to approximate an eigenspace of dimension $\mathrm{DTE}$, only $\mathrm{DTE}$ eigenfunctions are computed. In the worst case scenario, $\mathrm{DTE}+\mathrm{FIE}$ eigenfunctions are computed, which is the number of computed eigenfunctions by Algorithms~\ref{alg:picard_ortho},~\ref{alg:newton_ortho} on the same space. Because almost never the worst case scenario is achieved, Algorithms~\ref{alg:picard_importho} and \ref{alg:newton_importho} are more efficient than Algorithms~\ref{alg:picard_ortho},~\ref{alg:newton_ortho}.
 We conclude this section stating the adaptive algorithms with improved orthogonality.
-
+\newpage
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Picard's method with improved orthogonality} \label{alg:picard_impadapt} 
 \begin{algorithmic}
 
@@ -1123,7 +1156,7 @@ We conclude this section stating the adaptive algorithms with improved orthogona
 \STATE{$U_M^*=U_{m-1}^*$}
 \end{algorithmic}
 \end{algorithm}
-
+\noindent
 Similarly we define the adaptive method based on the Newton's method.
 
 \begin{algorithm}[!ht] \caption{Adaptive method based on the Newton's method with improved orthogonality} \label{alg:newton_impadapt} 
@@ -1171,11 +1204,12 @@ Similarly we define the adaptive method based on the Newton's method.
 
 
 
-In this section  we gather together some a priori estimates for non-symmetric eigenvalue
-problems on independent meshes. From this point of view this is the first time that such results are presented. 
+In this section  we present some a priori estimates for non-symmetric eigenvalue
+problems on independent meshes. To our best knowledge, this is the first time such results are presented. 
 
-The results prove exponential convergence of the method under uniform refinement and cast some hopes that the same kind of convergence is achieved with adaptive refinement as well. This is confirmed by the numerical results in Section~\ref{ssec:reent}. 
-Moreover, in Theorem~\ref{th:adj_rec} and Theorem~\ref{th:adj_rec_2} we proved convergence a priori results for the reconstructed triplet $(\Lambda_n,U_n,U_n^*)$ for both coercive bilinear forms $a(\cdot,\cdot)$ and not coercive ones.
+The results prove exponential convergence of the method under uniform refinement and cast some hopes that the same kind of convergence is achieved with adaptive refinement as well. This will be confirmed by the numerical results in Section~\ref{ssec:reent}. 
+Moreover, in Theorem~\ref{th:adj_rec} and Theorem~\ref{th:adj_rec_2} we prove a priori convergence results for the 
+reconstructed triplet $(\Lambda_n,U_n,U_n^*)$ for both coercive andnon-coercive bilinear forms $a(\cdot,\cdot)$.
 
 
 
@@ -1192,17 +1226,14 @@ $$
 $$
 
 \end{definition}
-
-
 From now on we shall let $C$ denote  a generic constant which 
 may depend
 on the 
 true eigenvalues and vectors of \eqref{eq:var_prob} and other
 constants introduced above, but is always independent of
 $n$, as well as $h_n$, $h^*_n$, $p_n$ and $p^*_n$.  
-
 The next lemma comes from the results in \cite{babuska}
-and from $hp-$results like \cite[Theorem~4.72]{schwab}.
+and from standard $hp$-FEM results.
 
 
 
@@ -1210,7 +1241,6 @@ and from $hp-$results like \cite[Theorem~4.72]{schwab}.
 \begin{lemma}
 \label{lm:adj}
 Suppose  that the bilinear form $a(\cdot,\cdot)$ is coercive and suppose
-
 $ 1 \leq j\leq \min\{\dim V_n,\dim V_n^*\}$. Let
 $\lambda_j$ be an eigenvalue with
 corresponding eigenspaces $E(\lambda_j),E^*(\lambda_j)\subset H^{1+\mu}(\Omega)$, for $\mu>1$, of any (finite) dimension  and
@@ -1240,17 +1270,20 @@ with $1\leq \mu\leq \min\{p_n,p_n^*\}$.
 
 \begin{proof}
 
-In this proof we use th results in \cite{babuska}, those results are stated for discrete and continuous eigenfunctions normalized in the $H^1$ norm, However in this work we normalize the eigenfunctions in a different way. It is however easy to see that the change in the normalization does not affect the final results. In fact let $\tilde u$, $\tilde u^*$ be the left and right eigenfunctions corresponding to the same eigenvalue where both functions are normalized in the $H^1$ norm and let $u_n$, $u_n^*$ be the computed approximations using one of the methods presented in this work, 
-then
- denoting by $ u = \tilde u /|b(\tilde u,\tilde u^*)|^{1/2}$ and by 
+In this proof we use th results in \cite{babuska}, those results are stated for discrete and continuous eigenfunctions normalized in the $H^1$ norm, However in this work we normalize the eigenfunctions in a different way. It is however easy to see that the change in the normalization does not affect the final results. In fact let $\tilde u$, $\tilde u^*$ be the left and right eigenfunctions corresponding to the same eigenvalue where both functions are normalized in the $H^1$ norm and let $u_n$, $u_n^*$ be the computed approximations using one of the methods presented in this work, then denoting by $ u = \tilde u /|b(\tilde u,\tilde u^*)|^{1/2}$ and by 
 $ u_n = \tilde u_n/|b(\tilde u_n,\tilde u_n^*)|^{1/2}$, where $\tilde u_n$, $\tilde u_n^*$ are $u_n$, $u_n^*$ normalized in $H^1$  and supposing that both $\tilde u-\tilde u_n$ and $\tilde u^*-\tilde u_n^*$ are converging, we have that
 $$
-u - u_n = \frac{\tilde u}{|b(\tilde u,\tilde u^*)|^{1/2}}-\frac{\tilde u_n}{|b(\tilde u_n,\tilde u_n^*)|^{1/2}} =
+u - u_n = \frac{\tilde u}{|b(\tilde u,\tilde u^*)|^{1/2}}-\frac{\tilde u_n}{|b(\tilde u_n,\tilde u_n^*)|^{1/2}} 
+$$
+$$
+=
 |b(\tilde u,\tilde u^*)|^{-1/2}(\tilde u-\tilde u_n)+ u_n( |b(\tilde u,\tilde u^*)|^{-1/2}- |b(\tilde u_n,\tilde u_n^*)|^{-1/2})\ ,
 $$
 and
 $$
-u^* - u_n^* = \frac{\tilde u^*}{|b(\tilde u,\tilde u^*)|^{1/2}}-\frac{\tilde u_n^*}{|b(\tilde u_n,\tilde u_n^*)|^{1/2}} =
+u^* - u_n^* = \frac{\tilde u^*}{|b(\tilde u,\tilde u^*)|^{1/2}}-\frac{\tilde u_n^*}{|b(\tilde u_n,\tilde u_n^*)|^{1/2}} 
+$$
+$$=
 |b(\tilde u,\tilde u^*)|^{-1/2}(\tilde u^*-\tilde u_n^*)+ u_n^*( |b(\tilde u,\tilde u^*)|^{-1/2}- |b(\tilde u_n,\tilde u_n^*)|^{-1/2})\ ,
 $$
 where the second sequences on the rhs converges by the assumption that the sequences normalized in $H^1$ converges.
@@ -1264,14 +1297,14 @@ $$
   E_1^*(\lambda_j)} \inf_{v_n^* \in V_n^*} \Vert u^* - v_n^* \Vert_1. 
   $$
 Combining this with standard finite element error
-estimates for $hp$-method, see \cite[Theorem~4.72]{schwab}, we get  
+estimates for $hp$-method, we get  
 \begin{eqnarray}
 \vert \lambda_{j,n} - \lambda_j \vert \  \  
 \ \leq \ C \frac{h_n^{\min(\mu,p)} }{p_n^{\mu}} \sup_{u \in
   E_1(\lambda_j)} \Vert u \Vert_{1+\mu}\frac{(h_n^*)^{\min(\mu,p^*)} }{(p_n^*)^{\mu}} \sup_{u^* \in
   E_1^*(\lambda_j)} \Vert u^* \Vert_{1+\mu} ,  \label{eq:second_est} 
   \end{eqnarray}
-To obtain  (ii), we use Theorem~8.4 in \cite{babuska} and Theorem~4.72 in \cite{schwab};
+To obtain  (ii), we use Theorem~8.4 in \cite{babuska}:
 $$
 \mathrm{dist}(
 u_{j,n},E_1(\lambda_j))_{1}\ \leq \  C \sup_{u \in
@@ -1290,7 +1323,6 @@ The next theorem shows that also the reconstructed triplet $(\Lambda_n,U_n,U_n^*
 \begin{theorem}
 \label{th:adj_rec}
 Suppose  that the bilinear form $a(\cdot,\cdot)$ is coercive and suppose
-
 $ 1 \leq j\leq \min\{\dim V_n,\dim V_n^*\}$. 
 Let
 $\lambda_j$ be an eigenvalue with
@@ -1362,14 +1394,13 @@ Then the result comes from Lemma~\ref{lm:adj}(i).
 
 \end{proof}
 
-The bilinear form $a(\cdot,\cdot)$ is not necessary coercive, but from the G\r{a}rding's inequality, see \cite[Theorem~(5.6.8)]{Brenner}, we have that either $a(\cdot,\cdot)$ or $a(\cdot,\cdot)$ with a shift is coercive, i.e. $a(\cdot,\cdot)+K b(\cdot,\cdot)$, with $K>0$. In the latter case, we can define a new bilinear form $\tilde a(\cdot,\cdot)=a(\cdot,\cdot)+K b(\cdot,\cdot)$ and all the results in this section still hold. Moreover it is easy to see that $\lambda$ is an eigenvalue for $a(\cdot,\cdot)$ if and only if $\sigma=\lambda+K$ is an eigenvalue of $\tilde  a(\cdot,\cdot)$. Also $(\lambda,u)$ and $(\lambda,u^*)$ are left and right eigenpairs of $a(\cdot,\cdot)$ if and only if $(\sigma,u)$ and $(\sigma,u^*)$ are left and right eigenpairs of $\tilde  a(\cdot,\cdot)$. This is also true for the discrete spectra, so the action of the shift $K b(\cdot,\cdot)$ shifts the spectrum by $K$, but keeps the eigenfunctions. In particular it is not necessary to use the shifted form $\tilde a(\cdot,\cdot)$ in practice, because all methods presented in this paper work also if $a(\cdot,\cdot)$ is not coercive and the equivalence of the discrete spectra does the rest. Now we recast the previous two results for a not coercive  $a(\cdot,\cdot)$. The proofs are straightforward because the results in \cite{babuska} hold also for $\tilde a(\cdot,\cdot)$.
+The bilinear form $a(\cdot,\cdot)$ is not necessary coercive, but from the G\r{a}rding's inequality, see \cite[Theorem~(5.6.8)]{Brenner}, we have that either $a(\cdot,\cdot)$ or $a(\cdot,\cdot)$ with a shift is coercive, i.e., $a(\cdot,\cdot)+K b(\cdot,\cdot)$, with $K>0$. In the latter case, we can define a new bilinear form $\tilde a(\cdot,\cdot)=a(\cdot,\cdot)+K b(\cdot,\cdot)$ and all the results in this section still hold. Moreover it is easy to see that $\lambda$ is an eigenvalue for $a(\cdot,\cdot)$ if and only if $\sigma=\lambda+K$ is an eigenvalue of $\tilde  a(\cdot,\cdot)$. Also $(\lambda,u)$ and $(\lambda,u^*)$ are left and right eigenpairs of $a(\cdot,\cdot)$ if and only if $(\sigma,u)$ and $(\sigma,u^*)$ are left and right eigenpairs of $\tilde  a(\cdot,\cdot)$. This is also true for the discrete spectra, so the action of the shift $K b(\cdot,\cdot)$ shifts the spectrum by $K$, but keeps the eigenfunctions. In particular it is not necessary to use the shifted form $\tilde a(\cdot,\cdot)$ in practice, because all methods presented in this paper work also if $a(\cdot,\cdot)$ is not coercive and the equivalence of the discrete spectra does the rest. Now we recast the previous two results for a not coercive  $a(\cdot,\cdot)$. The proofs are straightforward because the results in \cite{babuska} hold also for $\tilde a(\cdot,\cdot)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lemma}
 \label{lm:adj_2}
 Suppose  that the bilinear form $a(\cdot,\cdot)$ is not coercive, but  $\tilde a(\cdot,\cdot)$ is coercive.
 Suppose
-
 $ 1 \leq j\leq \min\{\dim V_n,\dim V_n^*\}$. Let
 $\lambda_j$ be an eigenvalue with
 corresponding eigenspaces $E(\lambda_j),E^*(\lambda_j)\subset H^{1+\mu}(\Omega)$, for $\mu>1$, of any (finite) dimension  and
@@ -1405,7 +1436,6 @@ The proofs of (ii) and (iii) are trivial because the eigenfunctions are not modi
 \begin{theorem}
 \label{th:adj_rec_2}
 Suppose  that the bilinear form $a(\cdot,\cdot)$ is coercive and suppose
-
 $ 1 \leq j\leq \min\{\dim V_n,\dim V_n^*\}$. 
 Let
 $\lambda_j$ be an eigenvalue with
@@ -1449,30 +1479,29 @@ As can be seen from the piece of output below, already on the first adapted mesh
 
 {\small
 \begin{verbatim}
----- Picard iter 1, ndof 121, eigenvalue: 100.638868721152, picard_err_rel 82.1409%
----- Picard iter 2, ndof 121, eigenvalue: 72.061449013246, picard_err_rel 26.0106%
----- Picard iter 3, ndof 121, eigenvalue: 24.048653326668, picard_err_rel 189.064%
----- Picard iter 4, ndof 121, eigenvalue: 19.896859692653, picard_err_rel 119.932%
----- Picard iter 5, ndof 121, eigenvalue: 19.842805664953, picard_err_rel 26.1302%
----- Picard iter 6, ndof 121, eigenvalue: 19.859718273742, picard_err_rel 5.49526%
----- Picard iter 7, ndof 121, eigenvalue: 19.863473026642, picard_err_rel 1.30883%
----- Picard iter 8, ndof 121, eigenvalue: 19.864119690489, picard_err_rel 0.395458%
----- Picard iter 9, ndof 121, eigenvalue: 19.864225593476, picard_err_rel 0.144903%
----- Picard iter 10, ndof 121, eigenvalue: 19.864242730568, picard_err_rel 0.0571376%
----- Picard iter 11, ndof 121, eigenvalue: 19.864245495476, picard_err_rel 0.0229224%
----- Picard iter 12, ndof 121, eigenvalue: 19.864245941239, picard_err_rel 0.0092188%
----- Picard iter 13, ndof 121, eigenvalue: 19.864246013093, picard_err_rel 0.00370628%
----- Picard iter 14, ndof 121, eigenvalue: 19.864246024674, picard_err_rel 0.00148921%
----- Picard iter 15, ndof 121, eigenvalue: 19.864246026541, picard_err_rel 0.000598148%
----- Picard iter 16, ndof 121, eigenvalue: 19.864246026842, picard_err_rel 0.000240197%
----- Picard iter 17, ndof 121, eigenvalue: 19.864246026890, picard_err_rel 9.64444e-05%
+- Picard iter 1,  ndof 121, eigenvalue: 100.63886872115, err_rel 82.1409%
+- Picard iter 2,  ndof 121, eigenvalue: 72.061449013246, err_rel 26.0106%
+- Picard iter 3,  ndof 121, eigenvalue: 24.048653326668, err_rel 189.064%
+- Picard iter 4,  ndof 121, eigenvalue: 19.896859692653, err_rel 119.932%
+- Picard iter 5,  ndof 121, eigenvalue: 19.842805664953, err_rel 26.1302%
+- Picard iter 6,  ndof 121, eigenvalue: 19.859718273742, err_rel 5.49526%
+- Picard iter 7,  ndof 121, eigenvalue: 19.863473026642, err_rel 1.30883%
+- Picard iter 8,  ndof 121, eigenvalue: 19.864119690489, err_rel 0.395458%
+- Picard iter 9,  ndof 121, eigenvalue: 19.864225593476, err_rel 0.144903%
+- Picard iter 10, ndof 121, eigenvalue: 19.864242730568, err_rel 0.0571376%
+- Picard iter 11, ndof 121, eigenvalue: 19.864245495476, err_rel 0.0229224%
+- Picard iter 12, ndof 121, eigenvalue: 19.864245941239, err_rel 0.0092188%
+- Picard iter 13, ndof 121, eigenvalue: 19.864246013093, err_rel 0.00370628%
+- Picard iter 14, ndof 121, eigenvalue: 19.864246024674, err_rel 0.00148921%
+- Picard iter 15, ndof 121, eigenvalue: 19.864246026541, err_rel 0.000598148%
+- Picard iter 16, ndof 121, eigenvalue: 19.864246026842, err_rel 0.000240197%
+- Picard iter 17, ndof 121, eigenvalue: 19.864246026890, err_rel 9.64444e-05%
 \end{verbatim}
 }
 
 \vspace{4mm}
 \noindent
 This is a clear example of what was predicted in Theorem~\ref{th:picard_conv}.
-
 On the other hand, using the standard orthogonality (Section~\ref{sec:picard++}) we cure this problem and the method 
 converges to the correct eigenpair. 
 
@@ -1532,7 +1561,7 @@ These results are shown in Figs.~\ref{fig:l_sh_eig1}, \ref{fig:l_sh_eig2}, \ref{
 
 \subsection{Domains with few reentering corners}\label{ssec:reent}
 
-We conclude the numerics section considering the model problem \eqref{one} on the square domain $\Omega$ with a square hole and with $b=(1,0)$ and $c=0$. Assuming that we are interested in the eigenfunctions corresponding to the first eigenvalue, see Fig.~\ref{fig:holef} and that we use the initial mesh in Fig.~\ref{fig:hole_mesh}, we want to study the convergence of our $hp$-adapted method on independent meshes based on Picard's method, i.e. Algorithm~\ref{alg:picard_impadapt}.
+We conclude the numerics section considering the model problem \eqref{one} on the square domain $\Omega$ with a square hole and with $b=(1,0)$ and $c=0$. Assuming that we are interested in the eigenfunctions corresponding to the first eigenvalue, see Fig.~\ref{fig:holef} and that we use the initial mesh in Fig.~\ref{fig:hole_mesh}, we want to study the convergence of our $hp$-adapted method on independent meshes based on Picard's method, i.e., Algorithm~\ref{alg:picard_impadapt}.
 
 In Fig.~\ref{fig:hole_mesh_12} we present the adapted meshes for the left and right eigenfunctions after 12 applications of the adaptive procedure. As can be seen the two meshes are different in order to fit with the different characteristics of each eigenfunction.
 
@@ -1603,6 +1632,20 @@ On average the number of iterations seems to reduce after each adaptation of the
 
 \section{Conclusion and Outlook}\label{sec:conclusion}
  
+In this paper we have generalized the results of \cite{solin-giani}
+to non-symmetric eigenvalue problems. Through many numerical 
+experiments, of which just a few were presented here, we gained 
+confidence that the methods work well in practice. 
+
+The major contribution of these results is that one does not have to 
+call the generalized eigensolver in every adaptivity step and always 
+compute all eigenpairs or eigentriplets. Instead, one can select one
+or a few of them and resolve them adaptively on meshes that moreover
+evolve differently during the adaptivity process. 
+
+In the next steps, we will employ the multimesh $hp$-FEM to actually 
+do this. Our target applications will be neutronics and the Density 
+Functional Theory (DFT) in quantum chemistry.
 
 \section*{Acknowledgments}
 The first author was supported by the Subcontract No. 00089911 of Battelle Energy
@@ -1705,11 +1748,6 @@ implicitly restarted arnoldi methods},  {SIAM, 1998}.
 {\sc H.~R\"{o}ck,}
 { Finfding an eigenvector and eigenvalue, with Newtons method for solving systems of nonlinear equations},
 {Report CMDIE WS2002/03}
-
-%\bibitem{schwab}
-%{\sc C. Schwab,}
-% { $p$- and $hp$- finite element methods},
-%{ Oxford University Press}, Oxford, 1998.
 
 \bibitem{solin1} 
 {\sc P. Solin, D. Andrs, J. Cerveny, M. Simko,}
